@@ -15,14 +15,22 @@ import { useState } from "react"
 export default function ProfileSearch() {
   const [search, setSearch] = useState("")
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
     const query = search.trim()
 
     if (!query) return
 
-    console.log("submit search", search)
+    const queryParts = query.split("#")
+
+    const response = await fetch(
+      `/api/search?gameName=${queryParts[0]}&tagLine=${queryParts[1]}`
+    )
+
+    const data = await response.json()
+
+    console.log(data)
   }
 
   return (

@@ -4,6 +4,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import SiteHeader from "@/components/layout/site-header"
+import SiteFooter from "@/components/layout/site-footer"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -28,10 +29,13 @@ export default function RootLayout({
         inter.variable
       )}
     >
-      <body className="p-8">
+      <body className="flex min-h-screen flex-col p-8">
         <ThemeProvider>
           <SiteHeader />
-          <main>{children}</main>
+
+          <main className="flex-1">{children}</main>
+
+          <SiteFooter />
         </ThemeProvider>
       </body>
     </html>
