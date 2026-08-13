@@ -28,7 +28,7 @@ export default function RootLayout({
         inter.variable
       )}
     >
-      <body className="p-4">
+      <body className="p-8">
         <ThemeProvider>
           <SiteHeader />
           <main>{children}</main>
