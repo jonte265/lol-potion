@@ -5,7 +5,7 @@ import Image from "next/image"
 
 export default function RankedCard({ rankedData }) {
   return (
-    <div className="flex w-full flex-col gap-2 rounded-2xl bg-card p-4">
+    <div className="flex w-full flex-col gap-4 rounded-2xl bg-card p-4">
       <Typography>{calcQueueType(rankedData.queueType)}</Typography>
       <div className="flex flex-row items-center justify-between gap-4">
         <div className="flex flex-row items-center gap-4">

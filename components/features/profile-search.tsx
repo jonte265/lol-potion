@@ -60,7 +60,7 @@ export default function ProfileSearch() {
           </InputGroupAddon>
         </InputGroup>
       </form>
-      <p className="pt-4 text-center text-red-400">{error}</p>
+      <p className="pt-4 text-center text-destructive">{error}</p>
     </div>
   )
 }

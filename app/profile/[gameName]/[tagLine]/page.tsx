@@ -9,6 +9,7 @@ import H2 from "@/components/common/typography/H2"
 import Typography from "@/components/common/typography/Typography"
 import { calcWr } from "@/lib/stat"
 import RankedCard from "@/components/features/ranked-card"
+import MatchCard from "@/components/features/match-card"
 
 export default async function ProfilePage({ params }: any) {
   const { gameName, tagLine } = await params
@@ -24,8 +25,6 @@ export default async function ProfilePage({ params }: any) {
   }
 
   const responseAccount = await response.json()
-
-  console.log("ye", responseAccount)
 
   const profileResponse = await getProfileData(responseAccount.puuid)
 
@@ -78,8 +77,17 @@ export default async function ProfilePage({ params }: any) {
           </div>
         </div>
         {/* Match history */}
-        <div>
+        <div className="flex flex-col gap-2">
           <Typography>Match history</Typography>
+          <div className="flex flex-col gap-4">
+            {profileResponse.matches.map((match) => (
+              <MatchCard
+                key={match.metadata.matchId}
+                matchdata={match}
+                puuid={responseAccount.puuid}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
