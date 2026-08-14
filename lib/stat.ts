@@ -20,4 +20,6 @@ export function calcQueueType(queue: string) {
   if (queue === "RANKED_SOLO_5x5") {
     return "Ranked Solo/Duo"
   }
+
+  return queue
 }
