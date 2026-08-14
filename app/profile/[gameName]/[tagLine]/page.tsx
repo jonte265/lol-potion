@@ -7,6 +7,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import H2 from "@/components/common/typography/H2"
 import Typography from "@/components/common/typography/Typography"
+import { calcWr } from "@/lib/stat"
 
 export default async function ProfilePage({ params }: any) {
   const { gameName, tagLine } = await params
@@ -30,8 +31,9 @@ export default async function ProfilePage({ params }: any) {
   console.log("all profile details", profileResponse)
 
   return (
-    <div className="flex items-center gap-2">
-      <div className="flex flex-row items-start justify-center gap-4">
+    <div className="flex flex-col items-start gap-8">
+      {/* Profile info */}
+      <div className="flex flex-row flex-wrap items-start justify-center gap-4">
         <div className="flex flex-col items-center justify-center">
           <div className="relative">
             <Image
@@ -63,6 +65,50 @@ export default async function ProfilePage({ params }: any) {
             <RefreshCw />
             Update
           </Button>
+        </div>
+      </div>
+      <div className="grid w-full grid-cols-1 gap-8 sm:grid-cols-2">
+        {/* Ranked stats */}
+        <div>
+          <Typography>Ranked solo</Typography>
+          <div className="flex flex-row items-center gap-4">
+            <Image
+              // className="rounded-2xl border-4 border-primary/50"
+              src={`/images/ranked/rank=${profileResponse.profile.rankedProfileData[2].tier.toLowerCase()}.png`}
+              width={100}
+              height={100}
+              alt={`${gameName} rank`}
+            />
+            <div>
+              <Typography bold>
+                {profileResponse.profile.rankedProfileData[2].tier}{" "}
+                {profileResponse.profile.rankedProfileData[2].rank}
+              </Typography>
+              <Typography>
+                {profileResponse.profile.rankedProfileData[2].leaguePoints} LP
+              </Typography>
+            </div>
+
+            <div>
+              <Typography>
+                {calcWr(
+                  profileResponse.profile.rankedProfileData[2].wins,
+                  profileResponse.profile.rankedProfileData[2].losses
+                )}
+                % Win rate
+              </Typography>
+              <Typography light>
+                {profileResponse.profile.rankedProfileData[2].wins} wins
+              </Typography>
+              <Typography light>
+                {profileResponse.profile.rankedProfileData[2].losses} losses
+              </Typography>
+            </div>
+          </div>
+        </div>
+        {/* Match history */}
+        <div>
+          <Typography>Match history</Typography>
         </div>
       </div>
     </div>

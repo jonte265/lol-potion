@@ -43,3 +43,14 @@ export async function getSummonerProfile(puuid: string) {
     }
   )
 }
+
+export async function getRankedProfile(puuid: string) {
+  return fetch(
+    `https://euw1.api.riotgames.com/lol/league/v4/entries/by-puuid/${puuid}`,
+    {
+      headers: {
+        "X-Riot-Token": process.env.RIOT_API_KEY!,
+      },
+    }
+  )
+}
