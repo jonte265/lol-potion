@@ -5,22 +5,22 @@ import Image from "next/image"
 
 export default function RankedCard({ rankedData }) {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex w-full flex-col gap-2 rounded-2xl bg-card p-4">
       <Typography>{calcQueueType(rankedData.queueType)}</Typography>
-      <div className="flex flex-row items-center gap-4">
-        <div className="rounded-4xl bg-card p-4">
+      <div className="flex flex-row items-center justify-between gap-4">
+        <div className="flex flex-row items-center gap-4">
           <Image
             src={`/images/ranked/rank=${rankedData.tier.toLowerCase()}.png`}
             width={75}
             height={75}
             alt={`${rankedData.tier} rank logo`}
           />
-        </div>
-        <div>
-          <Typography bold>
-            {rankedData.tier} {rankedData.rank}
-          </Typography>
-          <Typography>{rankedData.leaguePoints} LP</Typography>
+          <div>
+            <Typography bold>
+              {rankedData.tier} {rankedData.rank}
+            </Typography>
+            <Typography>{rankedData.leaguePoints} LP</Typography>
+          </div>
         </div>
 
         <div>
