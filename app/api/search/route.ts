@@ -1,3 +1,4 @@
+import { getAccount } from "@/lib/riot"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function GET(request: NextRequest) {
@@ -6,16 +7,29 @@ export async function GET(request: NextRequest) {
   const gameName = params.get("gameName")
   const tagLine = params.get("tagLine")
 
-  const res = await fetch(
-    `https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}`,
-    {
-      headers: {
-        "X-Riot-Token": process.env.RIOT_API_KEY!,
-      },
-    }
-  )
+  if (!gameName || !tagLine) {
+    return NextResponse.json(
+      { error: "Game Name and Tagline are required" },
+      { status: 400 }
+    )
+  }
 
-  const data = await res.json()
+  const resAccount = await getAccount(gameName, tagLine)
+
+  if (resAccount.status === 404) {
+    return NextResponse.json(
+      { error: "Account doesn't exist" },
+      { status: 404 }
+    )
+  }
+
+  if (!resAccount.ok) {
+    return NextResponse.json(
+      { error: "Something wrong with Riot API" },
+      { status: resAccount.status }
+    )
+  }
+  const data = await resAccount.json()
 
   return NextResponse.json(data)
 }

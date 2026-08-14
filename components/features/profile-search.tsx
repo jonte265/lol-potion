@@ -1,6 +1,7 @@
 "use client"
 
 import { SearchIcon } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 import {
   InputGroup,
@@ -10,12 +11,14 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@/components/ui/input-group"
-import { useState } from "react"
+import { useState, type SubmitEvent } from "react"
 
 export default function ProfileSearch() {
+  const router = useRouter()
   const [search, setSearch] = useState("")
+  const [error, setError] = useState("")
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
 
     const query = search.trim()
@@ -30,7 +33,15 @@ export default function ProfileSearch() {
 
     const data = await response.json()
 
-    console.log(data)
+    if (!response.ok) {
+      console.log("Error")
+      setError(data.error)
+      return
+    }
+
+    setError("")
+
+    router.push(`/profile/${data.gameName}/${data.tagLine}`)
   }
 
   return (
@@ -49,6 +60,7 @@ export default function ProfileSearch() {
           </InputGroupAddon>
         </InputGroup>
       </form>
+      <p className="pt-4 text-center text-red-400">{error}</p>
     </div>
   )
 }
