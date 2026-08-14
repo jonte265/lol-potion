@@ -7,3 +7,17 @@ export function calcWr(wins: number, losses: number) {
 
   return Math.round(wr)
 }
+
+export function calcQueueType(queue: string) {
+  if (queue === "RANKED_PREMADE_5x5") {
+    return "Ranked Premade"
+  }
+
+  if (queue === "RANKED_FLEX_SR") {
+    return "Ranked Flex"
+  }
+
+  if (queue === "RANKED_SOLO_5x5") {
+    return "Ranked Solo/Duo"
+  }
+}

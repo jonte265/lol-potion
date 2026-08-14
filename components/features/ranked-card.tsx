@@ -1,0 +1,37 @@
+import React from "react"
+import Typography from "../common/typography/Typography"
+import { calcQueueType, calcWr } from "@/lib/stat"
+import Image from "next/image"
+
+export default function RankedCard({ rankedData }) {
+  return (
+    <div className="flex flex-col gap-2">
+      <Typography>{calcQueueType(rankedData.queueType)}</Typography>
+      <div className="flex flex-row items-center gap-4">
+        <div className="rounded-4xl bg-card p-4">
+          <Image
+            src={`/images/ranked/rank=${rankedData.tier.toLowerCase()}.png`}
+            width={75}
+            height={75}
+            alt={`${rankedData.tier} rank logo`}
+          />
+        </div>
+        <div>
+          <Typography bold>
+            {rankedData.tier} {rankedData.rank}
+          </Typography>
+          <Typography>{rankedData.leaguePoints} LP</Typography>
+        </div>
+
+        <div>
+          <Typography light>
+            {rankedData.wins}W {rankedData.losses}L
+          </Typography>
+          <Typography light>
+            {calcWr(rankedData.wins, rankedData.losses)}% Win rate
+          </Typography>
+        </div>
+      </div>
+    </div>
+  )
+}
