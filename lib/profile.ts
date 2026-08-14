@@ -1,6 +1,7 @@
-import { getMatchDetails, getMatchIds } from "./riot"
+import { getMatchDetails, getMatchIds, getSummonerProfile } from "./riot"
 
 export async function getProfileData(puuid: string) {
+  // Matches
   const matchIdsResponse = await getMatchIds(puuid)
 
   const matchIds = await matchIdsResponse.json()
@@ -13,8 +14,21 @@ export async function getProfileData(puuid: string) {
     matchResults.map((match) => match.json())
   )
 
-  //   console.log("results", matchResults)
-  //   console.log("matchDetails", matchDetails)
+  // Profile
 
-  return matchDetails
+  const summonerReponse = await getSummonerProfile(puuid)
+
+  const summonerProfileData = await summonerReponse.json()
+
+  const profileIconUrl = `https://ddragon.leagueoflegends.com/cdn/16.16.1/img/profileicon/${summonerProfileData.profileIconId}.png`
+
+  console.log("summonerProfileData", summonerProfileData)
+
+  return {
+    profile: {
+      summonerProfileData,
+      profileIconUrl,
+    },
+    matches: matchDetails,
+  }
 }
