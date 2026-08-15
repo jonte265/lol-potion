@@ -1,3 +1,26 @@
 export function getChampionImageUrl(championName: string) {
   return `https://ddragon.leagueoflegends.com/cdn/16.16.1/img/champion/${championName}.png`
 }
+
+export function getSummonerSpellsImageUrl(spellId: number) {
+  return `https://ddragon.leagueoflegends.com/cdn/16.16.1/img/spell/${spellId}`
+}
+
+export async function getSummonerSpellsInfo(spellId: number) {
+  const res = await fetch(
+    "https://ddragon.leagueoflegends.com/cdn/16.16.1/data/en_US/summoner.json",
+    {
+      cache: "force-cache",
+    }
+  )
+
+  const spellInfo = await res.json()
+
+  const spellArray = Object.values(spellInfo.data)
+
+  const exactSpellInfo = spellArray.find(
+    (spell) => Number(spell.key) === spellId
+  )
+
+  return exactSpellInfo
+}
