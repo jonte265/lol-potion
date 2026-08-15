@@ -6,6 +6,10 @@ export function getSummonerSpellsImageUrl(spellId: number) {
   return `https://ddragon.leagueoflegends.com/cdn/16.16.1/img/spell/${spellId}`
 }
 
+export function getRuneImageUrl(runeName: string) {
+  return `https://ddragon.leagueoflegends.com/cdn/img/${runeName}`
+}
+
 export async function getSummonerSpellsInfo(spellId: number) {
   const res = await fetch(
     "https://ddragon.leagueoflegends.com/cdn/16.16.1/data/en_US/summoner.json",
@@ -33,5 +37,13 @@ export async function getRunesInfo(runeId: number) {
     }
   )
 
-  return res.json()
+  const runeInfo = await res.json()
+
+  const allRunes = runeInfo
+    .flatMap((runeTree) => runeTree.slots)
+    .flatMap((slot) => slot.runes)
+
+  const foundRune = allRunes.find((rune) => rune.id === runeId)
+
+  return foundRune
 }

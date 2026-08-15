@@ -70,7 +70,7 @@ export default async function ProfilePage({ params }: any) {
       <div className="grid w-full grid-cols-1 gap-8 xl:grid-cols-[3fr_7fr]">
         {/* Ranked stats */}
         <div>
-          <div className="flex flex-col-reverse gap-4">
+          <div className="flex flex-col gap-4">
             {profileResponse.profile.rankedProfileData.map((rank) => (
               <RankedCard key={rank.queueType} rankedData={rank} />
             ))}
