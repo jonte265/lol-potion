@@ -24,3 +24,14 @@ export async function getSummonerSpellsInfo(spellId: number) {
 
   return exactSpellInfo
 }
+
+export async function getRunesInfo(runeId: number) {
+  const res = await fetch(
+    "https://ddragon.leagueoflegends.com/cdn/16.16.1/data/en_US/runesReforged.json",
+    {
+      cache: "force-cache",
+    }
+  )
+
+  return res.json()
+}

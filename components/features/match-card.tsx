@@ -2,6 +2,7 @@ import Image from "next/image"
 import Typography from "../common/typography/Typography"
 import {
   getChampionImageUrl,
+  getRunesInfo,
   getSummonerSpellsImageUrl,
   getSummonerSpellsInfo,
 } from "@/lib/ddragon"
@@ -14,6 +15,10 @@ export default async function MatchCard({ matchdata, puuid }) {
   const spellsInfo1 = await getSummonerSpellsInfo(player.summoner1Id)
   const spellsInfo2 = await getSummonerSpellsInfo(player.summoner2Id)
   console.log(spellsInfo1, "spellsInfo")
+
+  const runeInfo1 = await getRunesInfo()
+
+  console.log(runeInfo1)
 
   return (
     <div
@@ -52,20 +57,34 @@ export default async function MatchCard({ matchdata, puuid }) {
           </div>
 
           <div className="flex flex-row">
-            <Image
-              className="rounded-xs"
-              src={getSummonerSpellsImageUrl(spellsInfo1.image.full)}
-              width={25}
-              height={25}
-              alt={`${player.championName} icon`}
-            />
-            <Image
-              className="rounded-xs"
-              src={getSummonerSpellsImageUrl(spellsInfo2.image.full)}
-              width={25}
-              height={25}
-              alt={`${player.championName} icon`}
-            />
+            <div className="relative">
+              <Image
+                className="rounded-xs"
+                src={getSummonerSpellsImageUrl(spellsInfo1.image.full)}
+                width={25}
+                height={25}
+                alt={`${player.championName} icon`}
+              />
+              <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
+                <Typography small light>
+                  {player.summoner1Casts}
+                </Typography>
+              </div>
+            </div>
+            <div className="relative">
+              <Image
+                className="rounded-xs"
+                src={getSummonerSpellsImageUrl(spellsInfo2.image.full)}
+                width={25}
+                height={25}
+                alt={`${player.championName} icon`}
+              />
+              <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
+                <Typography small light>
+                  {player.summoner2Casts}
+                </Typography>
+              </div>
+            </div>
           </div>
         </div>
       </div>
