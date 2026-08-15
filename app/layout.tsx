@@ -33,7 +33,7 @@ export default function RootLayout({
         <ThemeProvider>
           <SiteHeader />
 
-          <main className="flex-1">{children}</main>
+          <main className="mx-auto w-full max-w-280 flex-1">{children}</main>
 
           <SiteFooter />
         </ThemeProvider>
