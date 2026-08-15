@@ -32,7 +32,7 @@ export default async function MatchCard({ matchdata, puuid }) {
     <div
       className={`flex flex-col rounded-2xl p-4 ${player.win ? "bg-primary/20" : "bg-destructive/20"}`}
     >
-      <div className="flex flex-row items-center gap-4">
+      <div className="flex flex-row items-center justify-between gap-4">
         {/* Column 1 */}
         <div className="flex flex-col gap-2">
           <div>
@@ -125,8 +125,8 @@ export default async function MatchCard({ matchdata, puuid }) {
             <Typography light>
               {player.challenges.kda.toFixed(1)} KDA
             </Typography>
-            <Typography>1.3 CS</Typography>
-            <Typography>{player.goldEarned} Gold</Typography>
+            <Typography light>1.3 CS</Typography>
+            <Typography light>{player.goldEarned} Gold</Typography>
           </div>
         </div>
       </div>
