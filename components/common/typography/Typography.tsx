@@ -3,6 +3,7 @@ type TypographyTypes = {
   light?: boolean
   bold?: boolean
   small?: boolean
+  sentenceCase?: boolean
 }
 
 export default function Typography({
@@ -10,10 +11,11 @@ export default function Typography({
   light = false,
   bold = false,
   small = false,
+  sentenceCase = false,
 }: TypographyTypes) {
   return (
     <p
-      className={` ${light ? "text-muted-foreground" : ""} ${bold ? "font-bold" : ""} ${small ? "text-xs" : "text-sm"} `}
+      className={` ${light ? "text-muted-foreground" : ""} ${bold ? "font-bold" : ""} ${small ? "text-xs" : "text-sm"} ${sentenceCase ? "lowercase first-letter:uppercase" : ""} `}
     >
       {children}
     </p>

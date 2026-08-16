@@ -23,3 +23,12 @@ export function calcQueueType(queue: string) {
 
   return queue
 }
+
+export function calcCs(totalMinions: number, neutralMinions: number) {
+  return totalMinions + neutralMinions
+}
+
+export function calcCsPerMin(cs: number, gameDurationSeconds: number) {
+  if (gameDurationSeconds === 0) return 0
+  return cs / (gameDurationSeconds / 60)
+}

@@ -10,6 +10,7 @@ import {
 } from "@/lib/ddragon"
 import { formatGameDuration, getQueueName, timeAgo } from "@/lib/matches"
 import { Coins } from "lucide-react"
+import { calcCs, calcCsPerMin } from "@/lib/stat"
 
 export default async function MatchCard({ matchdata, puuid }) {
   const player = matchdata.info.participants.find((p) => p.puuid === puuid)
@@ -26,6 +27,9 @@ export default async function MatchCard({ matchdata, puuid }) {
 
   console.log("runeInfo111111", runeInfo1)
   console.log("runeStyleruneStyle", runeStyle)
+
+  const cs = calcCs(player.totalMinionsKilled, player.neutralMinionsKilled)
+  const csPerMin = calcCsPerMin(cs, matchdata.info.gameDuration)
 
   return (
     <div
@@ -66,6 +70,9 @@ export default async function MatchCard({ matchdata, puuid }) {
               </div>
             </div>
             <Typography light>{player.championName}</Typography>
+            <Typography sentenceCase light>
+              {player.teamPosition}
+            </Typography>
           </div>
 
           <div className="flex flex-col">
@@ -118,13 +125,26 @@ export default async function MatchCard({ matchdata, puuid }) {
         {/* Column 3 stats */}
         <div className="flex flex-row items-start gap-0.5">
           <div>
-            <Typography bold>
-              {player.kills} / {player.deaths} / {player.assists}
-            </Typography>
+            <div className="flex flex-row gap-1">
+              <Typography bold>{player.kills}</Typography>
+              <Typography bold light>
+                /
+              </Typography>
+              <div className="text-destructive">
+                <Typography bold>{player.deaths}</Typography>
+              </div>
+              <Typography bold light>
+                /
+              </Typography>
+              <Typography bold>{player.assists}</Typography>
+            </div>
+            <div className="flex flex-row gap-1">
+              <Typography bold>{player.challenges.kda.toFixed(1)}</Typography>
+              <Typography light>KDA</Typography>
+            </div>
             <Typography light>
-              {player.challenges.kda.toFixed(1)} KDA
+              {cs} CS ({csPerMin.toFixed(1)})
             </Typography>
-            <Typography light>1.3 CS</Typography>
             <Typography light>{player.goldEarned} Gold</Typography>
           </div>
         </div>
