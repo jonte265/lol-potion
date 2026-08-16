@@ -47,3 +47,18 @@ export async function getRunesInfo(runeId: number) {
 
   return foundRune
 }
+
+export async function getRunesStyle(runeStyleId: number) {
+  const res = await fetch(
+    "https://ddragon.leagueoflegends.com/cdn/16.16.1/data/en_US/runesReforged.json",
+    {
+      cache: "force-cache",
+    }
+  )
+
+  const runeInfo = await res.json()
+
+  const runeStyle = runeInfo.find((style) => style.id === runeStyleId)
+
+  return runeStyle
+}

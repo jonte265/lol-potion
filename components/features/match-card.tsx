@@ -4,6 +4,7 @@ import {
   getChampionImageUrl,
   getRuneImageUrl,
   getRunesInfo,
+  getRunesStyle,
   getSummonerSpellsImageUrl,
   getSummonerSpellsInfo,
 } from "@/lib/ddragon"
@@ -21,12 +22,10 @@ export default async function MatchCard({ matchdata, puuid }) {
   const runeInfo1 = await getRunesInfo(
     player.perks.styles[0].selections[0].perk
   )
-  const runeInfo2 = await getRunesInfo(
-    player.perks.styles[1].selections[1].perk
-  )
+  const runeStyle = await getRunesStyle(player.perks.styles[1].style)
 
   console.log("runeInfo111111", runeInfo1)
-  console.log("runeInfo222222", runeInfo2)
+  console.log("runeStyleruneStyle", runeStyle)
 
   return (
     <div
@@ -109,7 +108,7 @@ export default async function MatchCard({ matchdata, puuid }) {
             />
             <Image
               className="rounded-xs"
-              src={getRuneImageUrl(runeInfo2.icon)}
+              src={getRuneImageUrl(runeStyle.icon)}
               width={25}
               height={25}
               alt={`${player.championName} icon`}
