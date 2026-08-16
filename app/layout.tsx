@@ -29,7 +29,7 @@ export default function RootLayout({
         inter.variable
       )}
     >
-      <body className="flex min-h-screen flex-col p-8">
+      <body className="flex min-h-screen flex-col gap-8 p-8">
         <ThemeProvider>
           <SiteHeader />
 
