@@ -194,7 +194,10 @@ export default async function MatchCard({ matchdata, puuid }) {
           <div className="flex flex-row gap-4">
             <div>
               {team1.map((player) => (
-                <div className="flex flex-row items-center gap-1">
+                <div
+                  key={player.puuid}
+                  className="flex flex-row items-center gap-1"
+                >
                   <Image
                     className="rounded-full"
                     src={getChampionImageUrl(player.championName)}
@@ -204,7 +207,6 @@ export default async function MatchCard({ matchdata, puuid }) {
                   />
 
                   <Link
-                    key={player.puuid}
                     className="block w-24 truncate text-sm hover:underline"
                     href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
                     title={player.riotIdGameName}
@@ -216,7 +218,10 @@ export default async function MatchCard({ matchdata, puuid }) {
             </div>
             <div>
               {team2.map((player) => (
-                <div className="flex flex-row items-center gap-1">
+                <div
+                  key={player.puuid}
+                  className="flex flex-row items-center gap-1"
+                >
                   <Image
                     className="rounded-full"
                     src={getChampionImageUrl(player.championName)}
@@ -226,7 +231,6 @@ export default async function MatchCard({ matchdata, puuid }) {
                   />
 
                   <Link
-                    key={player.puuid}
                     className="block w-24 truncate text-sm hover:underline"
                     href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
                     title={player.riotIdGameName}
