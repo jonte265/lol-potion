@@ -34,6 +34,7 @@ export default async function ProfilePage({ params }: any) {
     <div className="flex flex-col items-start gap-8">
       {/* Profile info */}
       <div className="flex flex-row flex-wrap items-start justify-center gap-4">
+        {/* Avatar */}
         <div className="flex flex-col items-center justify-center">
           <div className="relative">
             <Image
@@ -60,13 +61,14 @@ export default async function ProfilePage({ params }: any) {
               <Copy className="text-muted-foreground" size={14} />
             </div>
           </div>
-          <Button>
+          <Button className="self-start">
             {/* <RefreshCw className="animate-spin" /> */}
             <RefreshCw />
             Update
           </Button>
         </div>
       </div>
+      {/* Ranked / Match history */}
       <div className="grid w-full grid-cols-1 gap-8 xl:grid-cols-[3fr_7fr]">
         {/* Ranked stats */}
         <div>
