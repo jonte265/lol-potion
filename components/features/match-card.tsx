@@ -194,26 +194,46 @@ export default async function MatchCard({ matchdata, puuid }) {
           <div className="flex flex-row gap-4">
             <div>
               {team1.map((player) => (
-                <Link
-                  key={player.puuid}
-                  className="block w-24 truncate text-sm hover:underline"
-                  href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
-                  title={player.riotIdGameName}
-                >
-                  {player.riotIdGameName}
-                </Link>
+                <div className="flex flex-row items-center gap-1">
+                  <Image
+                    className="rounded-full"
+                    src={getChampionImageUrl(player.championName)}
+                    width={25}
+                    height={25}
+                    alt={`${player.championName} icon`}
+                  />
+
+                  <Link
+                    key={player.puuid}
+                    className="block w-24 truncate text-sm hover:underline"
+                    href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
+                    title={player.riotIdGameName}
+                  >
+                    {player.riotIdGameName}
+                  </Link>
+                </div>
               ))}
             </div>
             <div>
               {team2.map((player) => (
-                <Link
-                  key={player.puuid}
-                  className="block w-24 truncate text-sm hover:underline"
-                  href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
-                  title={player.riotIdGameName}
-                >
-                  {player.riotIdGameName}
-                </Link>
+                <div className="flex flex-row items-center gap-1">
+                  <Image
+                    className="rounded-full"
+                    src={getChampionImageUrl(player.championName)}
+                    width={25}
+                    height={25}
+                    alt={`${player.championName} icon`}
+                  />
+
+                  <Link
+                    key={player.puuid}
+                    className="block w-24 truncate text-sm hover:underline"
+                    href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
+                    title={player.riotIdGameName}
+                  >
+                    {player.riotIdGameName}
+                  </Link>
+                </div>
               ))}
             </div>
           </div>
