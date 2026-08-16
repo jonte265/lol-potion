@@ -37,10 +37,10 @@ export default async function MatchCard({ matchdata, puuid }) {
     player.item0,
     player.item1,
     player.item2,
+    player.item6, // Ward item
     player.item3,
     player.item4,
     player.item5,
-    player.item6,
   ]
 
   const playerItemsInfo = await Promise.all(
