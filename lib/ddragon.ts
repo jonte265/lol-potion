@@ -1,5 +1,8 @@
 export function getChampionImageUrl(championName: string) {
-  return `https://ddragon.leagueoflegends.com/cdn/16.16.1/img/champion/${championName}.png`
+  const imageName =
+    championName === "FiddleSticks" ? "Fiddlesticks" : championName
+
+  return `https://ddragon.leagueoflegends.com/cdn/16.16.1/img/champion/${imageName}.png`
 }
 
 export function getItemImageUrl(fileName: string) {
