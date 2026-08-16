@@ -13,10 +13,16 @@ import {
 import { formatGameDuration, getQueueName, timeAgo } from "@/lib/matches"
 import { Coins } from "lucide-react"
 import { calcCs, calcCsPerMin } from "@/lib/stat"
+import Link from "next/link"
 
 export default async function MatchCard({ matchdata, puuid }) {
   const player = matchdata.info.participants.find((p) => p.puuid === puuid)
   console.log("player", player)
+
+  const team1 = matchdata.info.participants.slice(0, 5)
+  const team2 = matchdata.info.participants.slice(5)
+
+  console.log("team1", team1)
 
   const spellsInfo1 = await getSummonerSpellsInfo(player.summoner1Id)
   const spellsInfo2 = await getSummonerSpellsInfo(player.summoner2Id)
@@ -53,7 +59,7 @@ export default async function MatchCard({ matchdata, puuid }) {
     <div
       className={`flex flex-col rounded-2xl p-4 ${player.win ? "bg-primary/20" : "bg-destructive/20"}`}
     >
-      <div className="flex flex-row items-center justify-start gap-8">
+      <div className="flex flex-row items-center justify-between gap-8">
         {/* Column 1 */}
         <div className="flex flex-col gap-2">
           <div>
@@ -181,6 +187,35 @@ export default async function MatchCard({ matchdata, puuid }) {
                 alt={`${item.name} icon`}
               />
             ))}
+          </div>
+        </div>
+        {/* Column 5 players */}
+        <div className="flex flex-row items-start gap-0.5">
+          <div className="flex flex-row gap-4">
+            <div>
+              {team1.map((player) => (
+                <Link
+                  key={player.puuid}
+                  className="block w-24 truncate text-sm hover:underline"
+                  href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
+                  title={player.riotIdGameName}
+                >
+                  {player.riotIdGameName}
+                </Link>
+              ))}
+            </div>
+            <div>
+              {team2.map((player) => (
+                <Link
+                  key={player.puuid}
+                  className="block w-24 truncate text-sm hover:underline"
+                  href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
+                  title={player.riotIdGameName}
+                >
+                  {player.riotIdGameName}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -14,6 +14,10 @@ export function getRuneImageUrl(runeName: string) {
   return `https://ddragon.leagueoflegends.com/cdn/img/${runeName}`
 }
 
+export function getChampionSplashUrl(championName: string) {
+  return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championName}_0.jpg`
+}
+
 export async function getSummonerSpellsInfo(spellId: number) {
   const res = await fetch(
     "https://ddragon.leagueoflegends.com/cdn/16.16.1/data/en_US/summoner.json",
