@@ -2,6 +2,8 @@ import Image from "next/image"
 import Typography from "../common/typography/Typography"
 import {
   getChampionImageUrl,
+  getItemImageUrl,
+  getItemsInfo,
   getRuneImageUrl,
   getRunesInfo,
   getRunesStyle,
@@ -31,11 +33,27 @@ export default async function MatchCard({ matchdata, puuid }) {
   const cs = calcCs(player.totalMinionsKilled, player.neutralMinionsKilled)
   const csPerMin = calcCsPerMin(cs, matchdata.info.gameDuration)
 
+  const playerItems = [
+    player.item0,
+    player.item1,
+    player.item2,
+    player.item3,
+    player.item4,
+    player.item5,
+    player.item6,
+  ]
+
+  const playerItemsInfo = await Promise.all(
+    playerItems.filter((itemId) => itemId !== 0).map((i) => getItemsInfo(i))
+  )
+
+  console.log("playerItemsInfo", playerItemsInfo)
+
   return (
     <div
       className={`flex flex-col rounded-2xl p-4 ${player.win ? "bg-primary/20" : "bg-destructive/20"}`}
     >
-      <div className="flex flex-row items-center justify-between gap-4">
+      <div className="flex flex-row items-center justify-start gap-8">
         {/* Column 1 */}
         <div className="flex flex-col gap-2">
           <div>
@@ -145,7 +163,24 @@ export default async function MatchCard({ matchdata, puuid }) {
             <Typography light>
               {cs} CS ({csPerMin.toFixed(1)})
             </Typography>
-            <Typography light>{player.goldEarned} Gold</Typography>
+            <Typography light>
+              {(player.goldEarned / 1000).toFixed(1)}k Gold
+            </Typography>
+          </div>
+        </div>
+        {/* Column 4 items */}
+        <div className="flex flex-row items-start gap-0.5">
+          <div className="grid grid-cols-4 gap-1">
+            {playerItemsInfo.map((item, index) => (
+              <Image
+                key={`${item.image.full}-${index}`}
+                className="rounded-xs"
+                src={getItemImageUrl(item.image.full)}
+                width={25}
+                height={25}
+                alt={`${item.name} icon`}
+              />
+            ))}
           </div>
         </div>
       </div>

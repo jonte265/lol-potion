@@ -2,6 +2,10 @@ export function getChampionImageUrl(championName: string) {
   return `https://ddragon.leagueoflegends.com/cdn/16.16.1/img/champion/${championName}.png`
 }
 
+export function getItemImageUrl(fileName: string) {
+  return `https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/${fileName}`
+}
+
 export function getSummonerSpellsImageUrl(spellId: number) {
   return `https://ddragon.leagueoflegends.com/cdn/16.16.1/img/spell/${spellId}`
 }
@@ -61,4 +65,19 @@ export async function getRunesStyle(runeStyleId: number) {
   const runeStyle = runeInfo.find((style) => style.id === runeStyleId)
 
   return runeStyle
+}
+
+export async function getItemsInfo(itemId: number) {
+  const res = await fetch(
+    "https://ddragon.leagueoflegends.com/cdn/16.16.1/data/en_US/item.json",
+    {
+      cache: "force-cache",
+    }
+  )
+
+  const itemsInfo = await res.json()
+
+  const itemInfo = itemsInfo.data[itemId]
+
+  return itemInfo
 }
