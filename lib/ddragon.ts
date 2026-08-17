@@ -122,3 +122,22 @@ export async function getItemsInfo(itemId: number) {
 
   return itemInfo
 }
+
+export async function getChampionInfo(championId: number) {
+  const res = await fetch(
+    "https://ddragon.leagueoflegends.com/cdn/16.16.1/data/en_US/champion.json",
+    {
+      cache: "force-cache",
+    }
+  )
+
+  const championsInfo = await res.json()
+
+  const championArray = Object.values(championsInfo.data)
+
+  const championData = championArray.find(
+    (champ) => Number(champ.key) === championId
+  )
+
+  return championData
+}

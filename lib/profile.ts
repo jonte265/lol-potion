@@ -1,4 +1,5 @@
 import {
+  getChampionMasteryProfile,
   getMatchDetails,
   getMatchIds,
   getRankedProfile,
@@ -28,9 +29,10 @@ export async function getProfileData(puuid: string) {
   const rankedReponse = await getRankedProfile(puuid)
   const rankedProfileData = await rankedReponse.json()
 
-  //   console.log("rankedProfileData", rankedProfileData)
+  const masteryReponse = await getChampionMasteryProfile(puuid)
+  const masteryProfileData = await masteryReponse.json()
 
-  //   console.log("summonerProfileData", summonerProfileData)
+  console.log("masteryProfileData", masteryProfileData)
 
   return {
     profile: {
@@ -39,5 +41,6 @@ export async function getProfileData(puuid: string) {
       rankedProfileData,
     },
     matches: matchDetails,
+    masteryProfileData,
   }
 }

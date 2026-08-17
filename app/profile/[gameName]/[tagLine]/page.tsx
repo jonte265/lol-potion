@@ -11,6 +11,8 @@ import { calcWr } from "@/lib/stat"
 import RankedCard from "@/components/features/ranked-card"
 import MatchCard from "@/components/features/match-card"
 import { Card } from "@/components/ui/card"
+import { getChampionInfo } from "@/lib/ddragon"
+import ChampionMasteryList from "@/components/features/champion-mastery-list"
 
 export default async function ProfilePage({ params }: any) {
   const { gameName, tagLine } = await params
@@ -30,6 +32,14 @@ export default async function ProfilePage({ params }: any) {
   const profileResponse = await getProfileData(responseAccount.puuid)
 
   console.log("all profile details", profileResponse)
+
+  const championMasteries = await Promise.all(
+    profileResponse.masteryProfileData.map((champ) =>
+      getChampionInfo(champ.championId)
+    )
+  )
+
+  console.log("championMasteries", championMasteries)
 
   return (
     <div className="mx-auto flex w-full max-w-280 flex-col items-start gap-8">
@@ -72,17 +82,23 @@ export default async function ProfilePage({ params }: any) {
       {/* Ranked / Match history */}
       <div className="grid w-full grid-cols-1 gap-8 xl:grid-cols-[3fr_7fr]">
         {/* Ranked stats */}
-        <div>
+        <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-4">
             {profileResponse.profile.rankedProfileData.map((rank) => (
               <RankedCard key={rank.queueType} rankedData={rank} />
             ))}
           </div>
+          <Card className="p-4">
+            <Typography>Champion mastery</Typography>
+            {profileResponse.masteryProfileData.map((champ) => (
+              <ChampionMasteryList key={champ.championId} masteryData={champ} />
+            ))}
+          </Card>
         </div>
         {/* Match history */}
         <div className="flex flex-col gap-2">
           <Card className="p-4">
-            <Typography>Match history</Typography>
+            <Typography bold>Match history</Typography>
           </Card>
           <div className="flex flex-col gap-4">
             {profileResponse.matches.map((match) => (

@@ -54,3 +54,14 @@ export async function getRankedProfile(puuid: string) {
     }
   )
 }
+
+export async function getChampionMasteryProfile(puuid: string) {
+  return fetch(
+    `https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}/top`,
+    {
+      headers: {
+        "X-Riot-Token": process.env.RIOT_API_KEY!,
+      },
+    }
+  )
+}

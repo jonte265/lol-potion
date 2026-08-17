@@ -15,6 +15,7 @@ import { Coins } from "lucide-react"
 import { calcCs, calcCsPerMin } from "@/lib/stat"
 import Link from "next/link"
 import { Card } from "../ui/card"
+import { formatCompactNumber } from "@/lib/format"
 
 export default async function MatchCard({ matchdata, puuid }) {
   const player = matchdata.info.participants.find((p) => p.puuid === puuid)
@@ -171,7 +172,7 @@ export default async function MatchCard({ matchdata, puuid }) {
               {cs} CS ({csPerMin.toFixed(1)})
             </Typography>
             <Typography light>
-              {(player.goldEarned / 1000).toFixed(1)}K Gold
+              {formatCompactNumber(player.goldEarned)} Gold
             </Typography>
           </div>
         </div>
