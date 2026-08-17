@@ -63,7 +63,7 @@ export default async function ProfilePage({ params }: any) {
               src={profileResponse.profile.profileIconUrl}
               width={150}
               height={150}
-              alt={`${gameName} icon`}
+              alt={`${responseAccount.gameName} icon`}
             />
 
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-xl bg-background px-4">
@@ -76,9 +76,9 @@ export default async function ProfilePage({ params }: any) {
         {/* Player title */}
         <div className="flex flex-col gap-2">
           <div className="flex flex-row gap-2">
-            <Title>{gameName}</Title>
+            <Title>{responseAccount.gameName}</Title>
             <div className="flex flex-row items-center gap-1">
-              <Title light>#{tagLine}</Title>
+              <Title light>#{responseAccount.tagLine}</Title>
               <Copy className="text-muted-foreground" size={14} />
             </div>
           </div>

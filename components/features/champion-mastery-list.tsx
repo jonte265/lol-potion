@@ -19,9 +19,11 @@ export default async function ChampionMasteryList({ masteryData }) {
         <Typography>{champInfo.name}</Typography>
       </div>
       <Typography>{masteryData.championLevel} Mastery</Typography>
-      <Typography light>
-        {formatCompactNumber(masteryData.championPoints)} pts
-      </Typography>
+      <div className="justify-self-end">
+        <Typography light>
+          {formatCompactNumber(masteryData.championPoints)} pts
+        </Typography>
+      </div>
     </div>
   )
 }
