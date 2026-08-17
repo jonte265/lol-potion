@@ -13,7 +13,7 @@ export async function getAccount(gameName: string, tagLine: string) {
 
 export async function getMatchIds(puuid: string) {
   return fetch(
-    `https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=3`,
+    `https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=5`,
     {
       headers: {
         "X-Riot-Token": process.env.RIOT_API_KEY!,
