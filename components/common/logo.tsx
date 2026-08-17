@@ -1,10 +1,21 @@
+import { getItemImageUrl } from "@/lib/ddragon"
+import Image from "next/image"
 import Link from "next/link"
-import React from "react"
+import Title from "./typography/Title"
 
 export default function Logo() {
   return (
     <Link href={"/"}>
-      <h2 className="text-2xl font-bold">LoLPotion</h2>
+      <div className="flex flex-row items-center justify-center gap-1">
+        <Image
+          className="rounded-xs"
+          src={getItemImageUrl("2003.png")}
+          width={25}
+          height={25}
+          alt={`Health potion icon`}
+        />
+        <Title>LoL Potion</Title>
+      </div>
     </Link>
   )
 }
