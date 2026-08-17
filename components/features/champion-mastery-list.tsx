@@ -11,7 +11,7 @@ export default async function ChampionMasteryList({ masteryData }) {
       <div className="flex flex-row items-center gap-2">
         <Image
           className="rounded-full"
-          src={getChampionImageUrl(champInfo.name)}
+          src={getChampionImageUrl(champInfo.id)}
           width={25}
           height={25}
           alt={`${champInfo.name} icon`}
