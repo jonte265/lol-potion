@@ -11,7 +11,7 @@ import { calcWr } from "@/lib/stat"
 import RankedCard from "@/components/features/ranked-card"
 import MatchCard from "@/components/features/match-card"
 import { Card } from "@/components/ui/card"
-import { getChampionInfo } from "@/lib/ddragon"
+import { getChampionInfo, getChampionSplashUrl } from "@/lib/ddragon"
 import ChampionMasteryList from "@/components/features/champion-mastery-list"
 
 export default async function ProfilePage({ params }: any) {
@@ -41,10 +41,20 @@ export default async function ProfilePage({ params }: any) {
 
   console.log("championMasteries", championMasteries)
 
+  const splashUrl = getChampionSplashUrl(championMasteries[0].id)
+
   return (
     <div className="mx-auto flex w-full max-w-280 flex-col items-start gap-8">
       {/* Profile info */}
-      <div className="flex flex-row flex-wrap items-start justify-center gap-4">
+      <div
+        style={{
+          backgroundImage: `
+      linear-gradient(to right, rgb(0 0 0 / 0.8), rgb(0 0 0 / 0.2), rgb(0 0 0 / 0.8)),
+      url("${splashUrl}")
+    `,
+        }}
+        className="flex w-full flex-row flex-wrap items-start gap-4 rounded-2xl bg-cover bg-top p-6"
+      >
         {/* Avatar */}
         <div className="flex flex-col items-center justify-center">
           <div className="relative">
