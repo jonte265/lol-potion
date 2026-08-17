@@ -10,6 +10,7 @@ import Typography from "@/components/common/typography/Typography"
 import { calcWr } from "@/lib/stat"
 import RankedCard from "@/components/features/ranked-card"
 import MatchCard from "@/components/features/match-card"
+import { Card } from "@/components/ui/card"
 
 export default async function ProfilePage({ params }: any) {
   const { gameName, tagLine } = await params
@@ -80,7 +81,9 @@ export default async function ProfilePage({ params }: any) {
         </div>
         {/* Match history */}
         <div className="flex flex-col gap-2">
-          <Typography>Match history</Typography>
+          <Card className="p-4">
+            <Typography>Match history</Typography>
+          </Card>
           <div className="flex flex-col gap-4">
             {profileResponse.matches.map((match) => (
               <MatchCard

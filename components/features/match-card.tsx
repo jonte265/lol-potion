@@ -14,6 +14,7 @@ import { formatGameDuration, getQueueName, timeAgo } from "@/lib/matches"
 import { Coins } from "lucide-react"
 import { calcCs, calcCsPerMin } from "@/lib/stat"
 import Link from "next/link"
+import { Card } from "../ui/card"
 
 export default async function MatchCard({ matchdata, puuid }) {
   const player = matchdata.info.participants.find((p) => p.puuid === puuid)
@@ -56,8 +57,8 @@ export default async function MatchCard({ matchdata, puuid }) {
   console.log("playerItemsInfo", playerItemsInfo)
 
   return (
-    <div
-      className={`flex flex-col rounded-2xl p-4 ${player.win ? "bg-primary/30" : "bg-destructive/20"}`}
+    <Card
+      className={`${player.win ? "bg-primary/30" : "bg-destructive/20"} p-4`}
     >
       <div className="flex flex-row items-center justify-between gap-4">
         {/* Column 1 */}
@@ -243,6 +244,6 @@ export default async function MatchCard({ matchdata, puuid }) {
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   )
 }
