@@ -183,7 +183,7 @@ export default async function MatchCard({ matchdata, puuid }) {
           </div>
         </div>
         {/* Column 4 items */}
-        <div className="flex flex-row items-start gap-0.5">
+        <div className="flex shrink-0 flex-row items-start gap-0.5">
           <div className="grid grid-cols-4 gap-1">
             {playerItemsInfo.map((item, index) => (
               <Image
