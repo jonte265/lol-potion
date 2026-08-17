@@ -29,11 +29,11 @@ export default function RootLayout({
         inter.variable
       )}
     >
-      <body className="flex min-h-screen flex-col gap-8 p-8">
+      <body className="flex min-h-screen flex-col gap-8 p-4">
         <ThemeProvider>
           <SiteHeader />
 
-          <main className="mx-auto w-full max-w-280 flex-1">{children}</main>
+          <main className="flex-1">{children}</main>
 
           <SiteFooter />
         </ThemeProvider>

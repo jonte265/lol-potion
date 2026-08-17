@@ -17,7 +17,41 @@ export function getRuneImageUrl(runeName: string) {
   return `https://ddragon.leagueoflegends.com/cdn/img/${runeName}`
 }
 
-export function getChampionSplashUrl(championName: string) {
+export function getChampionSplashUrl(championName?: string) {
+  const champions = [
+    "Aatrox",
+    "Ahri",
+    "Akali",
+    "Ashe",
+    "Darius",
+    "Draven",
+    "Ezreal",
+    "Fiora",
+    "Garen",
+    "Jax",
+    "Jinx",
+    "Katarina",
+    "LeeSin",
+    "Lux",
+    "Malphite",
+    "Morgana",
+    "Nasus",
+    "Riven",
+    "Sion",
+    "Teemo",
+    "Thresh",
+    "Tristana",
+    "Vayne",
+    "Vi",
+    "Yasuo",
+    "Yone",
+    "Zed",
+  ]
+
+  if (!championName) {
+    return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champions[Math.floor(Math.random() * champions.length)]}_0.jpg`
+  }
+
   return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championName}_0.jpg`
 }
 

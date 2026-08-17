@@ -47,7 +47,7 @@ export default function ProfileSearch() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <InputGroup>
+        <InputGroup className="bg-background/90">
           <InputGroupInput
             value={search}
             onChange={(e) => setSearch(e.target.value)}

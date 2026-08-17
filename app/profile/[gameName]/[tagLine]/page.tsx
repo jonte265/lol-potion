@@ -31,7 +31,7 @@ export default async function ProfilePage({ params }: any) {
   console.log("all profile details", profileResponse)
 
   return (
-    <div className="flex flex-col items-start gap-8">
+    <div className="mx-auto flex w-full max-w-280 flex-col items-start gap-8">
       {/* Profile info */}
       <div className="flex flex-row flex-wrap items-start justify-center gap-4">
         {/* Avatar */}
