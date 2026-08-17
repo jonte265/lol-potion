@@ -65,7 +65,7 @@ export default async function MatchCard({ matchdata, puuid }) {
         {/* Column 1 */}
         <div className="flex flex-col gap-2">
           <div>
-            <Typography>{getQueueName(matchdata.info.queueId)}</Typography>
+            <Typography bold>{getQueueName(matchdata.info.queueId)}</Typography>
             <Typography light>
               {timeAgo(matchdata.info.gameEndTimestamp)}
             </Typography>

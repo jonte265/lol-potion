@@ -7,7 +7,7 @@ import { Card } from "../ui/card"
 export default function RankedCard({ rankedData }) {
   return (
     <Card className="p-4">
-      <Typography>{calcQueueType(rankedData.queueType)}</Typography>
+      <Typography bold>{calcQueueType(rankedData.queueType)}</Typography>
       <div className="flex flex-row items-center justify-between gap-4">
         <div className="flex flex-row items-center gap-4">
           {rankedData.queueType === "JADE_RANKED_SOLO_5x5" ? (

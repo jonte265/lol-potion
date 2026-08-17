@@ -99,7 +99,7 @@ export default async function ProfilePage({ params }: any) {
             ))}
           </div>
           <Card className="p-4">
-            <Typography>Champion mastery</Typography>
+            <Typography bold>Champion mastery</Typography>
             {profileResponse.masteryProfileData.map((champ) => (
               <ChampionMasteryList key={champ.championId} masteryData={champ} />
             ))}
