@@ -11,7 +11,7 @@ export default function Page() {
     <div className="relative flex min-h-72 items-center justify-center overflow-hidden sm:min-h-80 lg:min-h-128 xl:min-h-160">
       <div
         style={{ backgroundImage: `url("${splashUrl}")` }}
-        className="absolute inset-0 bg-cover bg-top"
+        className="absolute inset-0 rounded-2xl bg-cover bg-top"
       />
 
       <div className="absolute inset-0 bg-linear-to-b from-transparent to-background" />
