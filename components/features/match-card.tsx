@@ -82,7 +82,7 @@ export default async function MatchCard({ matchdata, puuid }) {
         {/* Column 2 */}
         <div className="flex flex-col items-start gap-0.5">
           {/* Champ icon + summoner spells + runes */}
-          <div className="flex flex-row">
+          <div className="flex flex-row items-start gap-0.5">
             {/* Champ icon */}
             <div className="relative">
               <Image
@@ -98,13 +98,13 @@ export default async function MatchCard({ matchdata, puuid }) {
               </div>
             </div>
             {/* Summoner spells */}
-            <div>
+            <div className="flex flex-col gap-0.5">
               <div className="relative">
                 <Image
                   className="rounded-xs"
                   src={getSummonerSpellsImageUrl(spellsInfo1.image.full)}
-                  width={25}
-                  height={25}
+                  width={24}
+                  height={24}
                   alt={`${spellsInfo1.name} icon`}
                 />
                 <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
@@ -117,8 +117,8 @@ export default async function MatchCard({ matchdata, puuid }) {
                 <Image
                   className="rounded-xs"
                   src={getSummonerSpellsImageUrl(spellsInfo2.image.full)}
-                  width={25}
-                  height={25}
+                  width={24}
+                  height={24}
                   alt={`${spellsInfo2.name} icon`}
                 />
                 <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
@@ -129,19 +129,19 @@ export default async function MatchCard({ matchdata, puuid }) {
               </div>
             </div>
             {/* Runes */}
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-0.5">
               <Image
                 className="rounded-xs"
                 src={getRuneImageUrl(runeInfo1?.icon)}
-                width={25}
-                height={25}
+                width={24}
+                height={24}
                 alt={`${runeInfo1?.name} icon`}
               />
               <Image
                 className="rounded-xs"
                 src={getRuneImageUrl(runeStyle?.icon)}
-                width={25}
-                height={25}
+                width={24}
+                height={24}
                 alt={`${runeStyle?.name} icon`}
               />
             </div>
