@@ -6,7 +6,7 @@ import { Card } from "../ui/card"
 
 export default function RankedCard({ rankedData }) {
   return (
-    <Card className="gap-2 p-4">
+    <Card className="p-4">
       <Typography>{calcQueueType(rankedData.queueType)}</Typography>
       <div className="flex flex-row items-center justify-between gap-4">
         <div className="flex flex-row items-center gap-4">
