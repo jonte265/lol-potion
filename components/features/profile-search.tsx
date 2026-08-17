@@ -47,14 +47,15 @@ export default function ProfileSearch() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <InputGroup className="bg-background/90">
+        <InputGroup className="h-14 border-4 border-primary/30 bg-background/90 has-[[data-slot=input-group-control]:focus-visible]:border-primary has-[[data-slot=input-group-control]:focus-visible]:ring-primary/30">
           <InputGroupInput
+            className="h-full px-4 text-base md:text-base"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Game Name#Tagline"
           />
           <InputGroupAddon align="inline-end">
-            <InputGroupButton type="submit" size="icon-xs">
+            <InputGroupButton type="submit" size="icon-sm">
               <SearchIcon />
             </InputGroupButton>
           </InputGroupAddon>
