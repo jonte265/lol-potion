@@ -21,6 +21,10 @@ export function calcQueueType(queue: string) {
     return "Ranked Solo/Duo"
   }
 
+  if (queue === "JADE_RANKED_SOLO_5x5") {
+    return "Classic Summoner’s Journey"
+  }
+
   return queue
 }
 

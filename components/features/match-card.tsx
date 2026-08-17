@@ -57,9 +57,9 @@ export default async function MatchCard({ matchdata, puuid }) {
 
   return (
     <div
-      className={`flex flex-col rounded-2xl p-4 ${player.win ? "bg-primary/20" : "bg-destructive/20"}`}
+      className={`flex flex-col rounded-2xl p-4 ${player.win ? "bg-primary/30" : "bg-destructive/20"}`}
     >
-      <div className="flex flex-row items-center justify-between gap-8">
+      <div className="flex flex-row items-center justify-between gap-4">
         {/* Column 1 */}
         <div className="flex flex-col gap-2">
           <div>
@@ -132,14 +132,14 @@ export default async function MatchCard({ matchdata, puuid }) {
           <div className="flex flex-col">
             <Image
               className="rounded-xs"
-              src={getRuneImageUrl(runeInfo1.icon)}
+              src={getRuneImageUrl(runeInfo1?.icon)}
               width={25}
               height={25}
               alt={`${player.championName} icon`}
             />
             <Image
               className="rounded-xs"
-              src={getRuneImageUrl(runeStyle.icon)}
+              src={getRuneImageUrl(runeStyle?.icon)}
               width={25}
               height={25}
               alt={`${player.championName} icon`}
@@ -170,7 +170,7 @@ export default async function MatchCard({ matchdata, puuid }) {
               {cs} CS ({csPerMin.toFixed(1)})
             </Typography>
             <Typography light>
-              {(player.goldEarned / 1000).toFixed(1)}k Gold
+              {(player.goldEarned / 1000).toFixed(1)}K Gold
             </Typography>
           </div>
         </div>
