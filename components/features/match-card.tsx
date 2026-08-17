@@ -80,8 +80,10 @@ export default async function MatchCard({ matchdata, puuid }) {
           </div>
         </div>
         {/* Column 2 */}
-        <div className="flex flex-row items-start gap-0.5">
-          <div>
+        <div className="flex flex-col items-start gap-0.5">
+          {/* Champ icon + summoner spells + runes */}
+          <div className="flex flex-row">
+            {/* Champ icon */}
             <div className="relative">
               <Image
                 className="rounded-xs"
@@ -95,57 +97,61 @@ export default async function MatchCard({ matchdata, puuid }) {
                 <Typography>{player.champLevel}</Typography>
               </div>
             </div>
+            {/* Summoner spells */}
+            <div>
+              <div className="relative">
+                <Image
+                  className="rounded-xs"
+                  src={getSummonerSpellsImageUrl(spellsInfo1.image.full)}
+                  width={25}
+                  height={25}
+                  alt={`${spellsInfo1.name} icon`}
+                />
+                <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
+                  <Typography small light>
+                    {player.summoner1Casts}
+                  </Typography>
+                </div>
+              </div>
+              <div className="relative">
+                <Image
+                  className="rounded-xs"
+                  src={getSummonerSpellsImageUrl(spellsInfo2.image.full)}
+                  width={25}
+                  height={25}
+                  alt={`${spellsInfo2.name} icon`}
+                />
+                <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
+                  <Typography small light>
+                    {player.summoner2Casts}
+                  </Typography>
+                </div>
+              </div>
+            </div>
+            {/* Runes */}
+            <div className="flex flex-col">
+              <Image
+                className="rounded-xs"
+                src={getRuneImageUrl(runeInfo1?.icon)}
+                width={25}
+                height={25}
+                alt={`${runeInfo1?.name} icon`}
+              />
+              <Image
+                className="rounded-xs"
+                src={getRuneImageUrl(runeStyle?.icon)}
+                width={25}
+                height={25}
+                alt={`${runeStyle?.name} icon`}
+              />
+            </div>
+          </div>
+          {/* text */}
+          <div>
             <Typography light>{player.championName}</Typography>
             <Typography sentenceCase light>
               {player.teamPosition}
             </Typography>
-          </div>
-
-          <div className="flex flex-col">
-            <div className="relative">
-              <Image
-                className="rounded-xs"
-                src={getSummonerSpellsImageUrl(spellsInfo1.image.full)}
-                width={25}
-                height={25}
-                alt={`${player.championName} icon`}
-              />
-              <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
-                <Typography small light>
-                  {player.summoner1Casts}
-                </Typography>
-              </div>
-            </div>
-            <div className="relative">
-              <Image
-                className="rounded-xs"
-                src={getSummonerSpellsImageUrl(spellsInfo2.image.full)}
-                width={25}
-                height={25}
-                alt={`${player.championName} icon`}
-              />
-              <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
-                <Typography small light>
-                  {player.summoner2Casts}
-                </Typography>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <Image
-              className="rounded-xs"
-              src={getRuneImageUrl(runeInfo1?.icon)}
-              width={25}
-              height={25}
-              alt={`${player.championName} icon`}
-            />
-            <Image
-              className="rounded-xs"
-              src={getRuneImageUrl(runeStyle?.icon)}
-              width={25}
-              height={25}
-              alt={`${player.championName} icon`}
-            />
           </div>
         </div>
         {/* Column 3 stats */}
