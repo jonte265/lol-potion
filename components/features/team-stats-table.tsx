@@ -15,6 +15,7 @@ import { Progress } from "../ui/progress"
 import { Flame } from "lucide-react"
 import { calcCs, calcCsPerMin } from "@/lib/stat"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
+import Link from "next/link"
 
 export default function TeamStatsTable({
   team,
@@ -95,7 +96,13 @@ export default function TeamStatsTable({
                     </div>
 
                     <div className="flex flex-col">
-                      <Typography bold>{player.riotIdGameName}</Typography>
+                      <Link
+                        className={`block w-24 truncate text-sm font-bold hover:underline`}
+                        href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
+                        title={player.riotIdGameName}
+                      >
+                        {player.riotIdGameName}
+                      </Link>
                       <Typography light>{player.championName}</Typography>
                     </div>
                   </div>

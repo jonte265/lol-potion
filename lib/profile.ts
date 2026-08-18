@@ -32,8 +32,6 @@ export async function getProfileData(puuid: string) {
   const masteryReponse = await getChampionMasteryProfile(puuid)
   const masteryProfileData = await masteryReponse.json()
 
-  console.log("masteryProfileData", masteryProfileData)
-
   return {
     profile: {
       profileIconUrl,
