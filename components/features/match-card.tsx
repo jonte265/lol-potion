@@ -24,6 +24,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "../ui/collapsible"
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 
 export default async function MatchCard({ matchdata, puuid }) {
   const player = matchdata.info.participants.find((p) => p.puuid === puuid)
@@ -124,9 +125,14 @@ export default async function MatchCard({ matchdata, puuid }) {
                     alt={`${spellsInfo1.name} icon`}
                   />
                   <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
-                    <Typography small light>
-                      {player.summoner1Casts}
-                    </Typography>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Typography small light>
+                          {player.summoner1Casts}
+                        </Typography>
+                      </TooltipTrigger>
+                      <TooltipContent>Amount of times used</TooltipContent>
+                    </Tooltip>
                   </div>
                 </div>
                 <div className="relative">
@@ -138,9 +144,14 @@ export default async function MatchCard({ matchdata, puuid }) {
                     alt={`${spellsInfo2.name} icon`}
                   />
                   <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
-                    <Typography small light>
-                      {player.summoner2Casts}
-                    </Typography>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Typography small light>
+                          {player.summoner2Casts}
+                        </Typography>
+                      </TooltipTrigger>
+                      <TooltipContent>Amount of times used</TooltipContent>
+                    </Tooltip>
                   </div>
                 </div>
               </div>
