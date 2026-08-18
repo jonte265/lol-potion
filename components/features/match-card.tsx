@@ -11,14 +11,18 @@ import {
   getSummonerSpellsInfo,
 } from "@/lib/ddragon"
 import { formatGameDuration, getQueueName, timeAgo } from "@/lib/matches"
-import { Coins, ChevronDown } from "lucide-react"
+import { ChevronDownIcon } from "lucide-react"
 import { calcCs, calcCsPerMin } from "@/lib/stat"
 import Link from "next/link"
 import { Card } from "../ui/card"
 import { formatCompactNumber } from "@/lib/format"
 import { Button } from "../ui/button"
 import ExpandMatch from "./expand-match"
-import ExpandableMatch from "./expandable-match"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "../ui/collapsible"
 
 export default async function MatchCard({ matchdata, puuid }) {
   const player = matchdata.info.participants.find((p) => p.puuid === puuid)
@@ -64,196 +68,217 @@ export default async function MatchCard({ matchdata, puuid }) {
     <Card
       className={`${player.win ? "bg-primary/30" : "bg-destructive/20"} p-4`}
     >
-      <ExpandableMatch expandedContent={<ExpandMatch />}>
-        {/* Column 1 */}
-        <div className="flex flex-col gap-2">
-          <div>
-            <Typography bold>{getQueueName(matchdata.info.queueId)}</Typography>
-            <Typography light>
-              {timeAgo(matchdata.info.gameEndTimestamp)}
-            </Typography>
-          </div>
-          <div className="flex flex-row gap-2">
-            <div className={player.win ? "text-primary" : "text-destructive"}>
-              <Typography bold>{player.win ? "WIN" : "LOSS"}</Typography>
+      <Collapsible className="flex flex-col gap-4">
+        <div className="flex flex-row items-center justify-between gap-4">
+          {/* Column 1 */}
+          <div className="flex flex-col gap-2">
+            <div>
+              <Typography bold>
+                {getQueueName(matchdata.info.queueId)}
+              </Typography>
+              <Typography light>
+                {timeAgo(matchdata.info.gameEndTimestamp)}
+              </Typography>
             </div>
-            <Typography>
-              {formatGameDuration(matchdata.info.gameDuration)}
-            </Typography>
+            <div className="flex flex-row gap-2">
+              <div className={player.win ? "text-primary" : "text-destructive"}>
+                <Typography bold>{player.win ? "WIN" : "LOSS"}</Typography>
+              </div>
+              <Typography>
+                {formatGameDuration(matchdata.info.gameDuration)}
+              </Typography>
+            </div>
           </div>
-        </div>
-        {/* Column 2 */}
-        <div className="flex flex-col items-start gap-0.5">
-          {/* Champ icon + summoner spells + runes */}
+          {/* Column 2 */}
+          <div className="flex flex-col items-start gap-0.5">
+            {/* Champ icon + summoner spells + runes */}
+            <div className="flex flex-row items-start gap-0.5">
+              {/* Champ icon */}
+              <div className="relative">
+                <Image
+                  className="rounded-xs"
+                  src={getChampionImageUrl(player.championName)}
+                  width={50}
+                  height={50}
+                  alt={`${player.championName} icon`}
+                />
+
+                <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
+                  <Typography>{player.champLevel}</Typography>
+                </div>
+              </div>
+              {/* Summoner spells */}
+              <div className="flex flex-col gap-0.5">
+                <div className="relative">
+                  <Image
+                    className="rounded-xs"
+                    src={getSummonerSpellsImageUrl(spellsInfo1.image.full)}
+                    width={24}
+                    height={24}
+                    alt={`${spellsInfo1.name} icon`}
+                  />
+                  <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
+                    <Typography small light>
+                      {player.summoner1Casts}
+                    </Typography>
+                  </div>
+                </div>
+                <div className="relative">
+                  <Image
+                    className="rounded-xs"
+                    src={getSummonerSpellsImageUrl(spellsInfo2.image.full)}
+                    width={24}
+                    height={24}
+                    alt={`${spellsInfo2.name} icon`}
+                  />
+                  <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
+                    <Typography small light>
+                      {player.summoner2Casts}
+                    </Typography>
+                  </div>
+                </div>
+              </div>
+              {/* Runes */}
+              <div className="flex flex-col gap-0.5">
+                <Image
+                  className="rounded-xs"
+                  src={getRuneImageUrl(runeInfo1?.icon)}
+                  width={24}
+                  height={24}
+                  alt={`${runeInfo1?.name} icon`}
+                />
+                <Image
+                  className="rounded-xs"
+                  src={getRuneImageUrl(runeStyle?.icon)}
+                  width={24}
+                  height={24}
+                  alt={`${runeStyle?.name} icon`}
+                />
+              </div>
+            </div>
+            {/* text */}
+            <div>
+              <Typography light>{player.championName}</Typography>
+              <Typography sentenceCase light>
+                {player.teamPosition}
+              </Typography>
+            </div>
+          </div>
+          {/* Column 3 stats */}
           <div className="flex flex-row items-start gap-0.5">
-            {/* Champ icon */}
-            <div className="relative">
-              <Image
-                className="rounded-xs"
-                src={getChampionImageUrl(player.championName)}
-                width={50}
-                height={50}
-                alt={`${player.championName} icon`}
-              />
-
-              <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
-                <Typography>{player.champLevel}</Typography>
-              </div>
-            </div>
-            {/* Summoner spells */}
-            <div className="flex flex-col gap-0.5">
-              <div className="relative">
-                <Image
-                  className="rounded-xs"
-                  src={getSummonerSpellsImageUrl(spellsInfo1.image.full)}
-                  width={24}
-                  height={24}
-                  alt={`${spellsInfo1.name} icon`}
-                />
-                <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
-                  <Typography small light>
-                    {player.summoner1Casts}
-                  </Typography>
-                </div>
-              </div>
-              <div className="relative">
-                <Image
-                  className="rounded-xs"
-                  src={getSummonerSpellsImageUrl(spellsInfo2.image.full)}
-                  width={24}
-                  height={24}
-                  alt={`${spellsInfo2.name} icon`}
-                />
-                <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
-                  <Typography small light>
-                    {player.summoner2Casts}
-                  </Typography>
-                </div>
-              </div>
-            </div>
-            {/* Runes */}
-            <div className="flex flex-col gap-0.5">
-              <Image
-                className="rounded-xs"
-                src={getRuneImageUrl(runeInfo1?.icon)}
-                width={24}
-                height={24}
-                alt={`${runeInfo1?.name} icon`}
-              />
-              <Image
-                className="rounded-xs"
-                src={getRuneImageUrl(runeStyle?.icon)}
-                width={24}
-                height={24}
-                alt={`${runeStyle?.name} icon`}
-              />
-            </div>
-          </div>
-          {/* text */}
-          <div>
-            <Typography light>{player.championName}</Typography>
-            <Typography sentenceCase light>
-              {player.teamPosition}
-            </Typography>
-          </div>
-        </div>
-        {/* Column 3 stats */}
-        <div className="flex flex-row items-start gap-0.5">
-          <div>
-            <div className="flex flex-row gap-1">
-              <Typography bold>{player.kills}</Typography>
-              <Typography bold light>
-                /
-              </Typography>
-              <div className="text-destructive">
-                <Typography bold>{player.deaths}</Typography>
-              </div>
-              <Typography bold light>
-                /
-              </Typography>
-              <Typography bold>{player.assists}</Typography>
-            </div>
-            <div className="flex flex-row gap-1">
-              <Typography bold>{player.challenges.kda.toFixed(1)}</Typography>
-              <Typography light>KDA</Typography>
-            </div>
-            <Typography light>
-              {cs} CS ({csPerMin.toFixed(1)})
-            </Typography>
-            <Typography light>
-              {formatCompactNumber(player.goldEarned)} Gold
-            </Typography>
-          </div>
-        </div>
-        {/* Column 4 items */}
-        <div className="flex shrink-0 flex-row items-start gap-0.5">
-          <div className="grid grid-cols-4 gap-1">
-            {playerItemsInfo.map((item, index) => (
-              <Image
-                key={`${item.image.full}-${index}`}
-                className="rounded-xs"
-                src={getItemImageUrl(item.image.full)}
-                width={25}
-                height={25}
-                alt={`${item.name} icon`}
-              />
-            ))}
-          </div>
-        </div>
-        {/* Column 5 players */}
-        <div className="flex flex-row items-start gap-0.5">
-          <div className="flex flex-row gap-4">
             <div>
-              {team1.map((player) => (
-                <div
-                  key={player.puuid}
-                  className="flex flex-row items-center gap-1"
-                >
-                  <Image
-                    className="rounded-full"
-                    src={getChampionImageUrl(player.championName)}
-                    width={25}
-                    height={25}
-                    alt={`${player.championName} icon`}
-                  />
-
-                  <Link
-                    className="block w-24 truncate text-sm hover:underline"
-                    href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
-                    title={player.riotIdGameName}
-                  >
-                    {player.riotIdGameName}
-                  </Link>
+              <div className="flex flex-row gap-1">
+                <Typography bold>{player.kills}</Typography>
+                <Typography bold light>
+                  /
+                </Typography>
+                <div className="text-destructive">
+                  <Typography bold>{player.deaths}</Typography>
                 </div>
-              ))}
+                <Typography bold light>
+                  /
+                </Typography>
+                <Typography bold>{player.assists}</Typography>
+              </div>
+              <div className="flex flex-row gap-1">
+                <Typography bold>{player.challenges.kda.toFixed(1)}</Typography>
+                <Typography light>KDA</Typography>
+              </div>
+              <Typography light>
+                {cs} CS ({csPerMin.toFixed(1)})
+              </Typography>
+              <Typography light>
+                {formatCompactNumber(player.goldEarned)} Gold
+              </Typography>
             </div>
-            <div>
-              {team2.map((player) => (
-                <div
-                  key={player.puuid}
-                  className="flex flex-row items-center gap-1"
-                >
-                  <Image
-                    className="rounded-full"
-                    src={getChampionImageUrl(player.championName)}
-                    width={25}
-                    height={25}
-                    alt={`${player.championName} icon`}
-                  />
-
-                  <Link
-                    className="block w-24 truncate text-sm hover:underline"
-                    href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
-                    title={player.riotIdGameName}
-                  >
-                    {player.riotIdGameName}
-                  </Link>
-                </div>
+          </div>
+          {/* Column 4 items */}
+          <div className="flex shrink-0 flex-row items-start gap-0.5">
+            <div className="grid grid-cols-4 gap-1">
+              {playerItemsInfo.map((item, index) => (
+                <Image
+                  key={`${item.image.full}-${index}`}
+                  className="rounded-xs"
+                  src={getItemImageUrl(item.image.full)}
+                  width={25}
+                  height={25}
+                  alt={`${item.name} icon`}
+                />
               ))}
             </div>
           </div>
+          {/* Column 5 players */}
+          <div className="flex flex-row items-start gap-0.5">
+            <div className="flex flex-row gap-4">
+              <div>
+                {team1.map((player) => (
+                  <div
+                    key={player.puuid}
+                    className="flex flex-row items-center gap-1"
+                  >
+                    <Image
+                      className="rounded-full"
+                      src={getChampionImageUrl(player.championName)}
+                      width={25}
+                      height={25}
+                      alt={`${player.championName} icon`}
+                    />
+
+                    <Link
+                      className="block w-24 truncate text-sm hover:underline"
+                      href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
+                      title={player.riotIdGameName}
+                    >
+                      {player.riotIdGameName}
+                    </Link>
+                  </div>
+                ))}
+              </div>
+              <div>
+                {team2.map((player) => (
+                  <div
+                    key={player.puuid}
+                    className="flex flex-row items-center gap-1"
+                  >
+                    <Image
+                      className="rounded-full"
+                      src={getChampionImageUrl(player.championName)}
+                      width={25}
+                      height={25}
+                      alt={`${player.championName} icon`}
+                    />
+
+                    <Link
+                      className="block w-24 truncate text-sm hover:underline"
+                      href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
+                      title={player.riotIdGameName}
+                    >
+                      {player.riotIdGameName}
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          {/* Column 6 */}
+          <div className="flex flex-col justify-end self-end">
+            <CollapsibleTrigger
+              render={
+                <Button
+                  // variant="ghost"
+                  size="icon-sm"
+                  aria-label="Show match details"
+                >
+                  <ChevronDownIcon className="group-data-panel-open/button:rotate-180" />
+                </Button>
+              }
+            />
+          </div>
         </div>
-      </ExpandableMatch>
+        <CollapsibleContent>
+          <ExpandMatch />
+        </CollapsibleContent>
+      </Collapsible>
     </Card>
   )
 }
