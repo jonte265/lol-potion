@@ -11,11 +11,14 @@ import {
   getSummonerSpellsInfo,
 } from "@/lib/ddragon"
 import { formatGameDuration, getQueueName, timeAgo } from "@/lib/matches"
-import { Coins } from "lucide-react"
+import { Coins, ChevronDown } from "lucide-react"
 import { calcCs, calcCsPerMin } from "@/lib/stat"
 import Link from "next/link"
 import { Card } from "../ui/card"
 import { formatCompactNumber } from "@/lib/format"
+import { Button } from "../ui/button"
+import ExpandMatch from "./expand-match"
+import ExpandableMatch from "./expandable-match"
 
 export default async function MatchCard({ matchdata, puuid }) {
   const player = matchdata.info.participants.find((p) => p.puuid === puuid)
@@ -61,7 +64,7 @@ export default async function MatchCard({ matchdata, puuid }) {
     <Card
       className={`${player.win ? "bg-primary/30" : "bg-destructive/20"} p-4`}
     >
-      <div className="flex flex-row items-center justify-between gap-4">
+      <ExpandableMatch expandedContent={<ExpandMatch />}>
         {/* Column 1 */}
         <div className="flex flex-col gap-2">
           <div>
@@ -250,7 +253,7 @@ export default async function MatchCard({ matchdata, puuid }) {
             </div>
           </div>
         </div>
-      </div>
+      </ExpandableMatch>
     </Card>
   )
 }
