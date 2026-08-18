@@ -13,8 +13,14 @@ import { getChampionImageUrl } from "@/lib/ddragon"
 import { formatCompactNumber } from "@/lib/format"
 import { Progress } from "../ui/progress"
 import { Flame } from "lucide-react"
+import { calcCs, calcCsPerMin } from "@/lib/stat"
 
-export default function TeamStatsTable({ team, puuid, highestDamage }) {
+export default function TeamStatsTable({
+  team,
+  puuid,
+  highestDamage,
+  gameDuration,
+}) {
   return (
     <div className="overflow-hidden rounded-xl">
       <Table>
@@ -45,89 +51,101 @@ export default function TeamStatsTable({ team, puuid, highestDamage }) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {team.map((player) => (
-            <TableRow
-              className={`${player.win ? "bg-primary/30" : "bg-destructive/20"} `}
-              key={player.puuid}
-            >
-              <TableCell>
-                <div className="flex flex-row items-center gap-2">
-                  {/* Champ icon */}
-                  <div className="relative shrink-0">
-                    <Image
-                      className={`${player.puuid === puuid ? "rounded-full ring-1 ring-foreground/80" : "rounded-xs"} `}
-                      src={getChampionImageUrl(player.championName)}
-                      width={40}
-                      height={40}
-                      alt={`${player.championName} icon`}
-                    />
+          {team.map((player) => {
+            const cs = calcCs(
+              player.totalMinionsKilled,
+              player.neutralMinionsKilled
+            )
 
-                    <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
-                      <Typography small>{player.champLevel}</Typography>
+            const csPerMin = calcCsPerMin(cs, gameDuration)
+
+            return (
+              <TableRow
+                className={`${player.win ? "bg-primary/30" : "bg-destructive/20"} `}
+                key={player.puuid}
+              >
+                <TableCell>
+                  <div className="flex flex-row items-center gap-2">
+                    {/* Champ icon */}
+                    <div className="relative shrink-0">
+                      <Image
+                        className={`${player.puuid === puuid ? "rounded-full ring-1 ring-foreground/80" : "rounded-xs"} `}
+                        src={getChampionImageUrl(player.championName)}
+                        width={40}
+                        height={40}
+                        alt={`${player.championName} icon`}
+                      />
+
+                      <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
+                        <Typography small>{player.champLevel}</Typography>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col">
+                      <Typography bold>{player.riotIdGameName}</Typography>
+                      <Typography light>{player.championName}</Typography>
                     </div>
                   </div>
-
-                  <div className="flex flex-col">
-                    <Typography bold>{player.riotIdGameName}</Typography>
-                    <Typography light>{player.championName}</Typography>
+                </TableCell>
+                <TableCell>51</TableCell>
+                <TableCell>
+                  <div className="flex flex-row gap-1">
+                    <Typography>{player.kills}</Typography>
+                    <Typography light>/</Typography>
+                    <div>
+                      <Typography>{player.deaths}</Typography>
+                    </div>
+                    <Typography light>/</Typography>
+                    <Typography>{player.assists}</Typography>
                   </div>
-                </div>
-              </TableCell>
-              <TableCell>51</TableCell>
-              <TableCell>
-                <div className="flex flex-row gap-1">
-                  <Typography>{player.kills}</Typography>
-                  <Typography light>/</Typography>
-                  <div>
-                    <Typography>{player.deaths}</Typography>
-                  </div>
-                  <Typography light>/</Typography>
-                  <Typography>{player.assists}</Typography>
-                </div>
-                <div className="flex flex-row gap-1">
-                  <Typography bold>
-                    {player.challenges.kda.toFixed(1)}
-                  </Typography>
-                  <Typography light>KDA</Typography>
-                </div>
-              </TableCell>
-              <TableCell>
-                <div className="flex flex-col gap-1">
-                  <div className="flex flex-row items-center gap-1">
-                    {player.totalDamageDealtToChampions === highestDamage && (
-                      <Flame className="size-4 text-orange-400" />
-                    )}
-                    <Typography>
-                      {new Intl.NumberFormat("en-US").format(
-                        player.totalDamageDealtToChampions
-                      )}{" "}
+                  <div className="flex flex-row gap-1">
+                    <Typography bold>
+                      {player.challenges.kda.toFixed(1)}
                     </Typography>
+                    <Typography light>KDA</Typography>
                   </div>
-                  <div>
-                    <Progress
-                      className={`[&_[data-slot=progress-track]]:h-2 ${
-                        player.win
-                          ? "[&_[data-slot=progress-indicator]]:bg-primary"
-                          : "[&_[data-slot=progress-indicator]]:bg-destructive"
-                      }`}
-                      value={
-                        (player.totalDamageDealtToChampions / highestDamage) *
-                        100
-                      }
-                    />
+                </TableCell>
+                <TableCell>
+                  <div className="flex flex-col gap-1">
+                    <div className="flex flex-row items-center gap-1">
+                      {player.totalDamageDealtToChampions === highestDamage && (
+                        <Flame className="size-4 text-orange-400" />
+                      )}
+                      <Typography>
+                        {new Intl.NumberFormat("en-US").format(
+                          player.totalDamageDealtToChampions
+                        )}{" "}
+                      </Typography>
+                    </div>
+                    <div>
+                      <Progress
+                        className={`[&_[data-slot=progress-track]]:h-2 ${
+                          player.win
+                            ? "[&_[data-slot=progress-indicator]]:bg-primary"
+                            : "[&_[data-slot=progress-indicator]]:bg-destructive"
+                        }`}
+                        value={
+                          (player.totalDamageDealtToChampions / highestDamage) *
+                          100
+                        }
+                      />
+                    </div>
                   </div>
-                </div>
-              </TableCell>
-              <TableCell>
-                <Typography>
-                  {formatCompactNumber(player.goldEarned)}
-                </Typography>
-              </TableCell>
-              <TableCell>12</TableCell>
-              <TableCell>14</TableCell>
-              <TableCell className="text-right">Item1</TableCell>
-            </TableRow>
-          ))}
+                </TableCell>
+                <TableCell>
+                  <Typography>
+                    {formatCompactNumber(player.goldEarned)}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography>{cs}</Typography>
+                  <Typography light>({csPerMin.toFixed(1)})</Typography>
+                </TableCell>
+                <TableCell>{player.wardsPlaced}</TableCell>
+                <TableCell className="text-right">Item1</TableCell>
+              </TableRow>
+            )
+          })}
         </TableBody>
       </Table>
     </div>

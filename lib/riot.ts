@@ -29,6 +29,7 @@ export async function getMatchDetails(matchId: string) {
       headers: {
         "X-Riot-Token": process.env.RIOT_API_KEY!,
       },
+      cache: "force-cache",
     }
   )
 }

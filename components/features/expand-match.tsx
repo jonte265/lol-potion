@@ -1,13 +1,3 @@
-import Typography from "../common/typography/Typography"
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../ui/table"
 import TeamStatsTable from "./team-stats-table"
 
 export default function ExpandMatch({ matchdata, puuid }) {
@@ -35,11 +25,13 @@ export default function ExpandMatch({ matchdata, puuid }) {
           team={blueTeam}
           puuid={puuid}
           highestDamage={highestDamage}
+          gameDuration={matchdata.info.gameDuration}
         />
         <TeamStatsTable
           team={redTeam}
           puuid={puuid}
           highestDamage={highestDamage}
+          gameDuration={matchdata.info.gameDuration}
         />
       </div>
     </div>
