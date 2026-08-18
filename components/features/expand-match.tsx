@@ -19,14 +19,28 @@ export default function ExpandMatch({ matchdata, puuid }) {
     (player) => player.teamId === 200
   )
 
+  const highestDamage = Math.max(
+    ...matchdata.info.participants.map(
+      (player) => player.totalDamageDealtToChampions
+    )
+  )
+
   const player = matchdata.info.participants.find((p) => p.puuid === puuid)
 
   return (
     <div className="bg-card p-4">
       {/* Team Stats screen */}
       <div className="flex flex-col gap-8">
-        <TeamStatsTable team={blueTeam} puuid={puuid} />
-        <TeamStatsTable team={redTeam} puuid={puuid} />
+        <TeamStatsTable
+          team={blueTeam}
+          puuid={puuid}
+          highestDamage={highestDamage}
+        />
+        <TeamStatsTable
+          team={redTeam}
+          puuid={puuid}
+          highestDamage={highestDamage}
+        />
       </div>
     </div>
   )

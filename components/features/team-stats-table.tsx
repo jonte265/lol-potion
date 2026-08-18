@@ -10,8 +10,10 @@ import {
   TableRow,
 } from "../ui/table"
 import { getChampionImageUrl } from "@/lib/ddragon"
+import { formatCompactNumber } from "@/lib/format"
+import { Progress } from "../ui/progress"
 
-export default function TeamStatsTable({ team, puuid }) {
+export default function TeamStatsTable({ team, puuid, highestDamage }) {
   return (
     <Table>
       {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
@@ -39,7 +41,6 @@ export default function TeamStatsTable({ team, puuid }) {
                 <div className="relative shrink-0">
                   <Image
                     className={`${player.puuid === puuid ? "rounded-full ring-1 ring-foreground/80" : "rounded-xs"} `}
-
                     src={getChampionImageUrl(player.championName)}
                     width={40}
                     height={40}
@@ -50,6 +51,7 @@ export default function TeamStatsTable({ team, puuid }) {
                     <Typography small>{player.champLevel}</Typography>
                   </div>
                 </div>
+
                 <div className="flex flex-col">
                   <Typography>{player.riotIdGameName}</Typography>
                   <Typography light>{player.championName}</Typography>
@@ -57,9 +59,40 @@ export default function TeamStatsTable({ team, puuid }) {
               </div>
             </TableCell>
             <TableCell>51</TableCell>
-            <TableCell>1/13/1</TableCell>
-            <TableCell>1231</TableCell>
-            <TableCell>123123k</TableCell>
+            <TableCell>
+              <div className="flex flex-row gap-1">
+                <Typography>{player.kills}</Typography>
+                <Typography light>/</Typography>
+                <div>
+                  <Typography>{player.deaths}</Typography>
+                </div>
+                <Typography light>/</Typography>
+                <Typography>{player.assists}</Typography>
+              </div>
+              <div className="flex flex-row gap-1">
+                <Typography bold>{player.challenges.kda.toFixed(1)}</Typography>
+                <Typography light>KDA</Typography>
+              </div>
+            </TableCell>
+            <TableCell>
+              <div className="flex flex-col gap-2">
+                <div>
+                  {new Intl.NumberFormat("en-US").format(
+                    player.totalDamageDealtToChampions
+                  )}
+                </div>
+                <div>
+                  <Progress
+                    value={
+                      (player.totalDamageDealtToChampions / highestDamage) * 100
+                    }
+                  />
+                </div>
+              </div>
+            </TableCell>
+            <TableCell>
+              <Typography>{formatCompactNumber(player.goldEarned)}</Typography>
+            </TableCell>
             <TableCell>12</TableCell>
             <TableCell>14</TableCell>
             <TableCell className="text-right">Item1</TableCell>
