@@ -14,6 +14,7 @@ import { formatCompactNumber } from "@/lib/format"
 import { Progress } from "../ui/progress"
 import { Flame } from "lucide-react"
 import { calcCs, calcCsPerMin } from "@/lib/stat"
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 
 export default function TeamStatsTable({
   team,
@@ -80,9 +81,16 @@ export default function TeamStatsTable({
                         <Typography small>{player.champLevel}</Typography>
                       </div>
                       <div className="absolute top-0 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-background px-0.5">
-                        <Typography light small>
-                          {player.summonerLevel}
-                        </Typography>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Typography light small>
+                              {player.summonerLevel}
+                            </Typography>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            Summoner level when this match was played
+                          </TooltipContent>
+                        </Tooltip>
                       </div>
                     </div>
 

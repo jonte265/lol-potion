@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import SiteHeader from "@/components/layout/site-header"
 import SiteFooter from "@/components/layout/site-footer"
+import { TooltipProvider } from "@/components/ui/tooltip"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -31,11 +32,13 @@ export default function RootLayout({
     >
       <body className="flex min-h-screen flex-col gap-8 p-4">
         <ThemeProvider>
-          <SiteHeader />
+          <TooltipProvider>
+            <SiteHeader />
 
-          <main className="flex-1">{children}</main>
+            <main className="flex-1">{children}</main>
 
-          <SiteFooter />
+            <SiteFooter />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>
