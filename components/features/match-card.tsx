@@ -101,7 +101,7 @@ export default async function MatchCard({ matchdata, puuid }) {
             {/* Champ icon + summoner spells + runes */}
             <div className="flex flex-row items-start gap-0.5">
               {/* Champ icon */}
-              <div className="relative">
+              <div className="relative shrink-0">
                 <Image
                   className="rounded-xs"
                   src={getChampionImageUrl(player.championName)}
@@ -115,7 +115,7 @@ export default async function MatchCard({ matchdata, puuid }) {
                 </div>
               </div>
               {/* Summoner spells */}
-              <div className="flex flex-col gap-0.5">
+              <div className="flex shrink-0 flex-col gap-0.5">
                 <div className="relative">
                   <Image
                     className="rounded-xs"
@@ -156,7 +156,7 @@ export default async function MatchCard({ matchdata, puuid }) {
                 </div>
               </div>
               {/* Runes */}
-              <div className="flex flex-col gap-0.5">
+              <div className="flex shrink-0 flex-col gap-0.5">
                 <Image
                   className="rounded-xs"
                   src={getRuneImageUrl(runeInfo1?.icon)}
