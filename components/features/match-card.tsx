@@ -16,7 +16,8 @@ import { calcCs, calcCsPerMin } from "@/lib/stat"
 import Link from "next/link"
 import { Card } from "../ui/card"
 import { formatCompactNumber } from "@/lib/format"
-import { Button } from "../ui/button"
+import { buttonVariants } from "../ui/button"
+import { cn } from "@/lib/utils"
 import ExpandMatch from "./expand-match"
 import {
   Collapsible,
@@ -263,17 +264,17 @@ export default async function MatchCard({ matchdata, puuid }) {
           {/* Column 6 */}
           <div className="flex flex-col justify-end self-end">
             <CollapsibleTrigger
-              render={
-                <Button
-                  className={`${player.win ? "bg-primary/30" : "bg-destructive/20 hover:bg-destructive/40 active:bg-destructive/40"}`}
-                  // variant="ghost"
-                  size="icon-sm"
-                  aria-label="Show match details"
-                >
-                  <ChevronDownIcon className="transition-all group-data-panel-open/button:rotate-180" />
-                </Button>
-              }
-            />
+              type="button"
+              aria-label="Show match details"
+              className={cn(
+                buttonVariants({ size: "icon-sm" }),
+                player.win
+                  ? "bg-primary/30"
+                  : "bg-destructive/20 hover:bg-destructive/40 active:bg-destructive/40"
+              )}
+            >
+              <ChevronDownIcon className="transition-all group-data-panel-open/button:rotate-180" />
+            </CollapsibleTrigger>
           </div>
         </div>
         <CollapsibleContent>
