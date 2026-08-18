@@ -79,6 +79,11 @@ export default function TeamStatsTable({
                       <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
                         <Typography small>{player.champLevel}</Typography>
                       </div>
+                      <div className="absolute top-0 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-background px-0.5">
+                        <Typography light small>
+                          {player.summonerLevel}
+                        </Typography>
+                      </div>
                     </div>
 
                     <div className="flex flex-col">
