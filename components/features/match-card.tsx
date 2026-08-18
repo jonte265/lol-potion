@@ -242,7 +242,7 @@ export default async function MatchCard({ matchdata, puuid }) {
                     />
 
                     <Link
-                      className="block w-24 truncate text-sm hover:underline"
+                      className={`${player.puuid === puuid ? "font-bold" : ""} block w-24 truncate text-sm hover:underline`}
                       href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
                       title={player.riotIdGameName}
                     >
@@ -266,7 +266,7 @@ export default async function MatchCard({ matchdata, puuid }) {
                     />
 
                     <Link
-                      className="block w-24 truncate text-sm hover:underline"
+                      className={`${player.puuid === puuid ? "font-bold" : ""} block w-24 truncate text-sm hover:underline`}
                       href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
                       title={player.riotIdGameName}
                     >
