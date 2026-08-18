@@ -29,10 +29,15 @@ export default async function MatchCard({ matchdata, puuid }) {
   const player = matchdata.info.participants.find((p) => p.puuid === puuid)
   console.log("player", player)
 
-  const team1 = matchdata.info.participants.slice(0, 5)
-  const team2 = matchdata.info.participants.slice(5)
+  const blueTeam = matchdata.info.participants.filter(
+    (player) => player.teamId === 100
+  )
 
-  console.log("team1", team1)
+  const redTeam = matchdata.info.participants.filter(
+    (player) => player.teamId === 200
+  )
+
+  console.log("blueTeam", blueTeam)
 
   const spellsInfo1 = await getSummonerSpellsInfo(player.summoner1Id)
   const spellsInfo2 = await getSummonerSpellsInfo(player.summoner2Id)
@@ -67,10 +72,10 @@ export default async function MatchCard({ matchdata, puuid }) {
 
   return (
     <Card
-      className={`${player.win ? "bg-primary/30" : "bg-destructive/20"} p-4`}
+      className={`${player.win ? "bg-primary/30" : "bg-destructive/20"} p-0`}
     >
       <Collapsible className="flex flex-col gap-4">
-        <div className="flex flex-row items-center justify-between gap-4">
+        <div className="flex flex-row items-center justify-between gap-4 p-4">
           {/* Column 1 */}
           <div className="flex flex-col gap-2">
             <div>
@@ -212,7 +217,7 @@ export default async function MatchCard({ matchdata, puuid }) {
           <div className="flex flex-row items-start gap-0.5">
             <div className="flex flex-row gap-4">
               <div className="flex flex-col gap-0.5">
-                {team1.map((player) => (
+                {blueTeam.map((player) => (
                   <div
                     key={player.puuid}
                     className="flex flex-row items-center gap-1"
@@ -236,7 +241,7 @@ export default async function MatchCard({ matchdata, puuid }) {
                 ))}
               </div>
               <div className="flex flex-col gap-0.5">
-                {team2.map((player) => (
+                {redTeam.map((player) => (
                   <div
                     key={player.puuid}
                     className="flex flex-row items-center gap-1"
@@ -278,7 +283,7 @@ export default async function MatchCard({ matchdata, puuid }) {
           </div>
         </div>
         <CollapsibleContent>
-          <ExpandMatch />
+          <ExpandMatch matchdata={matchdata} puuid={puuid} />
         </CollapsibleContent>
       </Collapsible>
     </Card>

@@ -1,9 +1,33 @@
-export default function ExpandMatch() {
+import Typography from "../common/typography/Typography"
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../ui/table"
+import TeamStatsTable from "./team-stats-table"
+
+export default function ExpandMatch({ matchdata, puuid }) {
+  const blueTeam = matchdata.info.participants.filter(
+    (player) => player.teamId === 100
+  )
+
+  const redTeam = matchdata.info.participants.filter(
+    (player) => player.teamId === 200
+  )
+
+  const player = matchdata.info.participants.find((p) => p.puuid === puuid)
+
   return (
-    <div className="bg-card">
-      <div>expand-match</div>
-      <div>expand-match</div>
-      <div>expand-match</div>
+    <div className="bg-card p-4">
+      {/* Team Stats screen */}
+      <div className="flex flex-col gap-8">
+        <TeamStatsTable team={blueTeam} puuid={puuid} />
+        <TeamStatsTable team={redTeam} puuid={puuid} />
+      </div>
     </div>
   )
 }
