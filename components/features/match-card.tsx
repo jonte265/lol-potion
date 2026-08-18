@@ -97,7 +97,7 @@ export default async function MatchCard({ matchdata, puuid }) {
             </div>
           </div>
           {/* Column 2 */}
-          <div className="flex flex-col items-start gap-0.5">
+          <div className="flex flex-col">
             {/* Champ icon + summoner spells + runes */}
             <div className="flex flex-row items-start gap-0.5">
               {/* Champ icon */}
@@ -182,35 +182,33 @@ export default async function MatchCard({ matchdata, puuid }) {
             </div>
           </div>
           {/* Column 3 stats */}
-          <div className="flex flex-row items-start gap-0.5">
-            <div>
-              <div className="flex flex-row gap-1">
-                <Typography bold>{player.kills}</Typography>
-                <Typography bold light>
-                  /
-                </Typography>
-                <div className="text-destructive">
-                  <Typography bold>{player.deaths}</Typography>
-                </div>
-                <Typography bold light>
-                  /
-                </Typography>
-                <Typography bold>{player.assists}</Typography>
-              </div>
-              <div className="flex flex-row gap-1">
-                <Typography bold>{player.challenges.kda.toFixed(1)}</Typography>
-                <Typography light>KDA</Typography>
-              </div>
-              <Typography light>
-                {cs} CS ({csPerMin.toFixed(1)})
+          <div className="flex flex-col">
+            <div className="flex flex-row gap-1">
+              <Typography bold>{player.kills}</Typography>
+              <Typography bold light>
+                /
               </Typography>
-              <Typography light>
-                {formatCompactNumber(player.goldEarned)} Gold
+              <div className="text-destructive">
+                <Typography bold>{player.deaths}</Typography>
+              </div>
+              <Typography bold light>
+                /
               </Typography>
+              <Typography bold>{player.assists}</Typography>
             </div>
+            <div className="flex flex-row gap-1">
+              <Typography bold>{player.challenges.kda.toFixed(1)}</Typography>
+              <Typography light>KDA</Typography>
+            </div>
+            <Typography light>
+              {cs} CS ({csPerMin.toFixed(1)})
+            </Typography>
+            <Typography light>
+              {formatCompactNumber(player.goldEarned)} Gold
+            </Typography>
           </div>
           {/* Column 4 items */}
-          <div className="flex shrink-0 flex-row items-start gap-0.5">
+          <div className="flex shrink-0 flex-row">
             <div className="grid grid-cols-4 gap-1">
               {playerItemsInfo.map((item, index) => (
                 <Image
@@ -225,60 +223,58 @@ export default async function MatchCard({ matchdata, puuid }) {
             </div>
           </div>
           {/* Column 5 players */}
-          <div className="flex flex-row items-start gap-0.5">
-            <div className="flex flex-row gap-4">
-              <div className="flex flex-col gap-0.5">
-                {blueTeam.map((player) => (
-                  <div
-                    key={player.puuid}
-                    className="flex flex-row items-center gap-1"
-                  >
-                    <Image
-                      className={`${player.puuid === puuid ? "ring-1 ring-foreground/80" : ""} rounded-full`}
-                      src={getChampionImageUrl(player.championName)}
-                      width={20}
-                      height={20}
-                      alt={`${player.championName} icon`}
-                    />
+          <div className="flex flex-row gap-4">
+            <div className="flex flex-col gap-0.5">
+              {blueTeam.map((player) => (
+                <div
+                  key={player.puuid}
+                  className="flex flex-row items-center gap-1"
+                >
+                  <Image
+                    className={`${player.puuid === puuid ? "ring-1 ring-foreground/80" : ""} rounded-full`}
+                    src={getChampionImageUrl(player.championName)}
+                    width={20}
+                    height={20}
+                    alt={`${player.championName} icon`}
+                  />
 
-                    <Link
-                      className={`${player.puuid === puuid ? "font-bold" : ""} block w-24 truncate text-sm hover:underline`}
-                      href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
-                      title={player.riotIdGameName}
-                    >
-                      {player.riotIdGameName}
-                    </Link>
-                  </div>
-                ))}
-              </div>
-              <div className="flex flex-col gap-0.5">
-                {redTeam.map((player) => (
-                  <div
-                    key={player.puuid}
-                    className="flex flex-row items-center gap-1"
+                  <Link
+                    className={`${player.puuid === puuid ? "font-bold" : ""} block w-24 truncate text-sm hover:underline`}
+                    href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
+                    title={player.riotIdGameName}
                   >
-                    <Image
-                      className={`${player.puuid === puuid ? "ring-1 ring-foreground/80" : ""} rounded-full`}
-                      src={getChampionImageUrl(player.championName)}
-                      width={20}
-                      height={20}
-                      alt={`${player.championName} icon`}
-                    />
+                    {player.riotIdGameName}
+                  </Link>
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col gap-0.5">
+              {redTeam.map((player) => (
+                <div
+                  key={player.puuid}
+                  className="flex flex-row items-center gap-1"
+                >
+                  <Image
+                    className={`${player.puuid === puuid ? "ring-1 ring-foreground/80" : ""} rounded-full`}
+                    src={getChampionImageUrl(player.championName)}
+                    width={20}
+                    height={20}
+                    alt={`${player.championName} icon`}
+                  />
 
-                    <Link
-                      className={`${player.puuid === puuid ? "font-bold" : ""} block w-24 truncate text-sm hover:underline`}
-                      href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
-                      title={player.riotIdGameName}
-                    >
-                      {player.riotIdGameName}
-                    </Link>
-                  </div>
-                ))}
-              </div>
+                  <Link
+                    className={`${player.puuid === puuid ? "font-bold" : ""} block w-24 truncate text-sm hover:underline`}
+                    href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
+                    title={player.riotIdGameName}
+                  >
+                    {player.riotIdGameName}
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
           {/* Column 6 */}
-          <div className="flex flex-col justify-end self-end">
+          <div className="flex flex-col self-end">
             <CollapsibleTrigger
               type="button"
               aria-label="Show match details"
