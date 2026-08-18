@@ -211,17 +211,17 @@ export default async function MatchCard({ matchdata, puuid }) {
           {/* Column 5 players */}
           <div className="flex flex-row items-start gap-0.5">
             <div className="flex flex-row gap-4">
-              <div>
+              <div className="flex flex-col gap-0.5">
                 {team1.map((player) => (
                   <div
                     key={player.puuid}
                     className="flex flex-row items-center gap-1"
                   >
                     <Image
-                      className="rounded-full"
+                      className={`${player.puuid === puuid ? "ring-1 ring-foreground/80" : ""} rounded-full`}
                       src={getChampionImageUrl(player.championName)}
-                      width={25}
-                      height={25}
+                      width={20}
+                      height={20}
                       alt={`${player.championName} icon`}
                     />
 
@@ -235,17 +235,17 @@ export default async function MatchCard({ matchdata, puuid }) {
                   </div>
                 ))}
               </div>
-              <div>
+              <div className="flex flex-col gap-0.5">
                 {team2.map((player) => (
                   <div
                     key={player.puuid}
                     className="flex flex-row items-center gap-1"
                   >
                     <Image
-                      className="rounded-full"
+                      className={`${player.puuid === puuid ? "ring-1 ring-foreground/80" : ""} rounded-full`}
                       src={getChampionImageUrl(player.championName)}
-                      width={25}
-                      height={25}
+                      width={20}
+                      height={20}
                       alt={`${player.championName} icon`}
                     />
 
