@@ -265,11 +265,12 @@ export default async function MatchCard({ matchdata, puuid }) {
             <CollapsibleTrigger
               render={
                 <Button
+                  className={`${player.win ? "bg-primary/30" : "bg-destructive/20 hover:bg-destructive/40 active:bg-destructive/40"}`}
                   // variant="ghost"
                   size="icon-sm"
                   aria-label="Show match details"
                 >
-                  <ChevronDownIcon className="group-data-panel-open/button:rotate-180" />
+                  <ChevronDownIcon className="transition-all group-data-panel-open/button:rotate-180" />
                 </Button>
               }
             />
