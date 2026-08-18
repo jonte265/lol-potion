@@ -1,6 +1,6 @@
 import Title from "@/components/common/typography/Title"
 import { notFound } from "next/navigation"
-import { Copy, RefreshCw } from "lucide-react"
+import { RefreshCw } from "lucide-react"
 import { getAccount, getMatchDetails } from "@/lib/riot"
 import { getProfileData } from "@/lib/profile"
 import Image from "next/image"
@@ -13,6 +13,7 @@ import MatchCard from "@/components/features/match-card"
 import { Card } from "@/components/ui/card"
 import { getChampionInfo, getChampionSplashUrl } from "@/lib/ddragon"
 import ChampionMasteryList from "@/components/features/champion-mastery-list"
+import CopyButton from "@/components/common/copy-button"
 
 export default async function ProfilePage({ params }: any) {
   const { gameName, tagLine } = await params
@@ -75,11 +76,13 @@ export default async function ProfilePage({ params }: any) {
         </div>
         {/* Player title */}
         <div className="flex flex-col gap-2">
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row items-start gap-2">
             <Title>{responseAccount.gameName}</Title>
-            <div className="flex flex-row items-center gap-1">
+            <div className="flex flex-row items-center justify-center gap-1">
               <Title light>#{responseAccount.tagLine}</Title>
-              <Copy className="text-muted-foreground" size={14} />
+              <CopyButton
+                value={`${responseAccount.gameName}#${responseAccount.tagLine}`}
+              />
             </div>
           </div>
           <Button className="self-start">
