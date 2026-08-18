@@ -30,7 +30,7 @@ export default function ExpandMatch({ matchdata, puuid }) {
   return (
     <div className="bg-card p-4">
       {/* Team Stats screen */}
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-4">
         <TeamStatsTable
           team={blueTeam}
           puuid={puuid}
