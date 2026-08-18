@@ -22,8 +22,18 @@ export default function TeamStatsTable({ team, puuid, highestDamage }) {
         <TableHeader>
           <TableRow>
             <TableHead className="min-w-32">
-              Team 1 (Red team){" "}
-              {/* {matchdata.info.teams[0].win ? "Victory" : "Defeat"} */}
+              <div className="flex flex-row gap-1">
+                <div
+                  className={team[0].win ? `text-primary` : `text-destructive`}
+                >
+                  <Typography bold>
+                    {team[0].win ? "Victory" : "Defeat"}{" "}
+                  </Typography>
+                </div>
+                <Typography>
+                  {team[0].teamId === 100 ? "(Blue Team)" : "(Red Team)"}
+                </Typography>
+              </div>
             </TableHead>
             <TableHead>Carry</TableHead>
             <TableHead>KDA</TableHead>
@@ -58,7 +68,7 @@ export default function TeamStatsTable({ team, puuid, highestDamage }) {
                   </div>
 
                   <div className="flex flex-col">
-                    <Typography>{player.riotIdGameName}</Typography>
+                    <Typography bold>{player.riotIdGameName}</Typography>
                     <Typography light>{player.championName}</Typography>
                   </div>
                 </div>
