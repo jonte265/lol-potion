@@ -15,6 +15,7 @@ import {
   TableRow,
 } from "../ui/table"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
+import { Badge } from "../ui/badge"
 
 export default function TeamStatsTable({
   team,
@@ -106,7 +107,7 @@ export default function TeamStatsTable({
                       </Link>
                       <div className="flex flex-row gap-1">
                         <Typography light>{player.championName}</Typography>
-                        <Typography light>rank</Typography>
+                        {player.pentaKills > 0 && <Badge>Pentakill</Badge>}
                       </div>
                     </div>
                   </div>
@@ -177,6 +178,9 @@ export default function TeamStatsTable({
                         </Typography>
                         <Typography>
                           {player.wardsKilled} wards destroyed
+                        </Typography>
+                        <Typography>
+                          {player.detectorWardsPlaced} Control wards placed
                         </Typography>
                       </div>
                     </TooltipContent>
