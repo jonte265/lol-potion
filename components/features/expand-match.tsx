@@ -18,7 +18,7 @@ export default function ExpandMatch({ matchdata, puuid }) {
   const player = matchdata.info.participants.find((p) => p.puuid === puuid)
 
   return (
-    <div className="bg-card p-4">
+    <div className="bg-card">
       {/* Team Stats screen */}
       <div className="flex flex-col gap-4">
         <TeamStatsTable
