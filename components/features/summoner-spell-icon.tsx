@@ -1,19 +1,39 @@
 import Image from "next/image"
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import Typography from "../common/typography/Typography"
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 
 export default function SummonerSpellIcon({ spellInfo, player, spellSlot }) {
   if (!spellInfo) return null
 
   return (
     <div className="relative">
-      <Image
-        className="rounded-xs"
-        src={spellInfo.imageUrl}
-        width={24}
-        height={24}
-        alt={`${spellInfo.name} icon`}
-      />
+      <Tooltip>
+        <TooltipTrigger>
+          <Image
+            className="rounded-xs"
+            src={spellInfo.imageUrl}
+            width={24}
+            height={24}
+            alt={`${spellInfo.name} icon`}
+          />
+        </TooltipTrigger>
+
+        <TooltipContent>
+          <div className="flex flex-col flex-wrap gap-2">
+            <div className="flex flex-col">
+              <Typography bold>{spellInfo.name}</Typography>
+            </div>
+            <div className="flex flex-col">
+              <Typography>{spellInfo.description}</Typography>
+            </div>
+            <div className="flex flex-col">
+              <Typography light>Range: {spellInfo.rangeBurn}</Typography>
+              <Typography light>Cooldown: {spellInfo.cooldownBurn}s</Typography>
+            </div>
+          </div>
+        </TooltipContent>
+      </Tooltip>
+
       <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
         <Tooltip>
           <TooltipTrigger>
