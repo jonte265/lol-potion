@@ -36,3 +36,15 @@ export function calcCsPerMin(cs: number, gameDurationSeconds: number) {
   if (gameDurationSeconds === 0) return 0
   return cs / (gameDurationSeconds / 60)
 }
+
+export function calcCarryScore(player) {
+  const score =
+    player.visionScore * 3 +
+    player.challenges.kda * 5 +
+    // player.challenges.teamDamagePercentage +
+    player.challenges.goldPerMinute * 2
+
+  const normalizedScore = score / 14
+
+  return Math.round(Math.min(Math.max(normalizedScore, 0), 100))
+}

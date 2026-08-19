@@ -1,5 +1,6 @@
 import Typography from "../common/typography/Typography"
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "../ui/table"
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import TeamStatsRow from "./team-stats-row"
 
 export default function TeamStatsTable({
@@ -27,13 +28,20 @@ export default function TeamStatsTable({
                 </Typography>
               </div>
             </TableHead>
-            <TableHead>Carry</TableHead>
+            <TableHead>
+              <Tooltip>
+                <TooltipTrigger>Carry</TooltipTrigger>
+                <TooltipContent>
+                  <p>Based on vibes</p>
+                </TooltipContent>
+              </Tooltip>
+            </TableHead>
             <TableHead>KDA</TableHead>
             <TableHead>Damage</TableHead>
             <TableHead>Gold</TableHead>
             <TableHead>CS</TableHead>
             <TableHead>Vision</TableHead>
-            <TableHead className="text-right">Items</TableHead>
+            <TableHead>Items</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

@@ -13,7 +13,7 @@ import {
   getRunesStyle,
   getSummonerSpellsInfo,
 } from "@/lib/ddragon"
-import { calcCs, calcCsPerMin } from "@/lib/stat"
+import { calcCarryScore, calcCs, calcCsPerMin } from "@/lib/stat"
 import { formatCompactNumber } from "@/lib/format"
 import ItemInventory from "./item-inventory"
 import SummonerSpellIcon from "./summoner-spell-icon"
@@ -119,7 +119,7 @@ export default async function TeamStatsRow({
           </div>
         </div>
       </TableCell>
-      <TableCell>51</TableCell>
+      <TableCell>{calcCarryScore(player)}</TableCell>
       <TableCell>
         <div className="flex flex-row gap-1">
           <Typography>{player.kills}</Typography>

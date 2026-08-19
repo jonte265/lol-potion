@@ -26,7 +26,7 @@ export default async function ProfilePage({ params }: any) {
 
   const profileResponse = await getProfileData(responseAccount.puuid)
 
-  // console.log("all profile details", profileResponse)
+  console.log("all profile details", profileResponse)
 
   const championMasteries = await Promise.all(
     profileResponse.masteryProfileData.map((champ) =>
