@@ -95,7 +95,12 @@ export async function getRunesInfo(runeId: number) {
 
   const foundRune = allRunes.find((rune) => rune.id === runeId)
 
-  return foundRune
+  if (!foundRune) return null
+
+  return {
+    ...foundRune,
+    imageUrl: getRuneImageUrl(foundRune.icon),
+  }
 }
 
 export async function getRunesStyle(runeStyleId: number) {
@@ -110,7 +115,12 @@ export async function getRunesStyle(runeStyleId: number) {
 
   const runeStyle = runeInfo.find((style) => style.id === runeStyleId)
 
-  return runeStyle
+  if (!runeStyle) return null
+
+  return {
+    ...runeStyle,
+    imageUrl: getRuneImageUrl(runeStyle.icon),
+  }
 }
 
 export async function getItemsInfo(itemIds: number[]) {

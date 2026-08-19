@@ -1,7 +1,6 @@
 import {
   getChampionImageUrl,
   getItemsInfo,
-  getRuneImageUrl,
   getRunesInfo,
   getRunesStyle,
   getSummonerSpellsInfo,
@@ -23,6 +22,7 @@ import {
 } from "../ui/collapsible"
 import ExpandMatch from "./expand-match"
 import ItemInventory from "./item-inventory"
+import RuneIcon from "./rune-icon"
 import SummonerSpellIcon from "./summoner-spell-icon"
 
 export default async function MatchCard({ matchdata, puuid }) {
@@ -128,20 +128,8 @@ export default async function MatchCard({ matchdata, puuid }) {
               </div>
               {/* Runes */}
               <div className="flex shrink-0 flex-col gap-0.5">
-                <Image
-                  className="rounded-xs"
-                  src={getRuneImageUrl(runeInfo1?.icon)}
-                  width={24}
-                  height={24}
-                  alt={`${runeInfo1?.name} icon`}
-                />
-                <Image
-                  className="rounded-xs"
-                  src={getRuneImageUrl(runeStyle?.icon)}
-                  width={24}
-                  height={24}
-                  alt={`${runeStyle?.name} icon`}
-                />
+                <RuneIcon runeInfo={runeInfo1} size={24} />
+                <RuneIcon runeInfo={runeStyle} size={24} />
               </div>
             </div>
             {/* text */}
