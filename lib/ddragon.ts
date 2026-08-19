@@ -9,8 +9,8 @@ export function getItemImageUrl(fileName: string) {
   return `https://ddragon.leagueoflegends.com/cdn/16.16.1/img/item/${fileName}`
 }
 
-export function getSummonerSpellsImageUrl(spellId: number) {
-  return `https://ddragon.leagueoflegends.com/cdn/16.16.1/img/spell/${spellId}`
+export function getSummonerSpellsImageUrl(fileName: string) {
+  return `https://ddragon.leagueoflegends.com/cdn/16.16.1/img/spell/${fileName}`
 }
 
 export function getRuneImageUrl(runeName: string) {

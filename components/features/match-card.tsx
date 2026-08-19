@@ -26,6 +26,7 @@ import {
 } from "../ui/collapsible"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import ItemInventory from "./item-inventory"
+import SummonerSpellIcon from "./summoner-spell-icon"
 
 export default async function MatchCard({ matchdata, puuid }) {
   const player = matchdata.info.participants.find((p) => p.puuid === puuid)
@@ -115,44 +116,16 @@ export default async function MatchCard({ matchdata, puuid }) {
               </div>
               {/* Summoner spells */}
               <div className="flex shrink-0 flex-col gap-0.5">
-                <div className="relative">
-                  <Image
-                    className="rounded-xs"
-                    src={getSummonerSpellsImageUrl(spellsInfo1.image.full)}
-                    width={24}
-                    height={24}
-                    alt={`${spellsInfo1.name} icon`}
-                  />
-                  <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Typography small light>
-                          {player.summoner1Casts}
-                        </Typography>
-                      </TooltipTrigger>
-                      <TooltipContent>Amount of times used</TooltipContent>
-                    </Tooltip>
-                  </div>
-                </div>
-                <div className="relative">
-                  <Image
-                    className="rounded-xs"
-                    src={getSummonerSpellsImageUrl(spellsInfo2.image.full)}
-                    width={24}
-                    height={24}
-                    alt={`${spellsInfo2.name} icon`}
-                  />
-                  <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Typography small light>
-                          {player.summoner2Casts}
-                        </Typography>
-                      </TooltipTrigger>
-                      <TooltipContent>Amount of times used</TooltipContent>
-                    </Tooltip>
-                  </div>
-                </div>
+                <SummonerSpellIcon
+                  player={player}
+                  spellInfo={spellsInfo1}
+                  spellSlot={1}
+                />
+                <SummonerSpellIcon
+                  player={player}
+                  spellInfo={spellsInfo2}
+                  spellSlot={2}
+                />
               </div>
               {/* Runes */}
               <div className="flex shrink-0 flex-col gap-0.5">
