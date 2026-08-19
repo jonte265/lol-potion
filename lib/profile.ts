@@ -16,12 +16,14 @@ export async function getProfileData(puuid: string) {
 
   // Profile
 
-  const summonerProfileData = await getSummonerProfile(puuid)
+  const [summonerProfileData, rankedProfileData, masteryProfileData] =
+    await Promise.all([
+      getSummonerProfile(puuid),
+      getRankedProfile(puuid),
+      getChampionMasteryProfile(puuid),
+    ])
+
   const profileIconUrl = `https://ddragon.leagueoflegends.com/cdn/16.16.1/img/profileicon/${summonerProfileData.profileIconId}.png`
-
-  const rankedProfileData = await getRankedProfile(puuid)
-
-  const masteryProfileData = await getChampionMasteryProfile(puuid)
 
   return {
     profile: {
