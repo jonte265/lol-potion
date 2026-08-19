@@ -8,29 +8,20 @@ import {
 
 export async function getProfileData(puuid: string) {
   // Matches
-  const matchIdsResponse = await getMatchIds(puuid)
-
-  const matchIds = await matchIdsResponse.json()
-
-  const matchResults = await Promise.all(
-    matchIds.map((id) => getMatchDetails(id))
-  )
+  const matchIds = await getMatchIds(puuid)
 
   const matchDetails = await Promise.all(
-    matchResults.map((match) => match.json())
+    matchIds.map((id) => getMatchDetails(id))
   )
 
   // Profile
 
-  const summonerReponse = await getSummonerProfile(puuid)
-  const summonerProfileData = await summonerReponse.json()
+  const summonerProfileData = await getSummonerProfile(puuid)
   const profileIconUrl = `https://ddragon.leagueoflegends.com/cdn/16.16.1/img/profileicon/${summonerProfileData.profileIconId}.png`
 
-  const rankedReponse = await getRankedProfile(puuid)
-  const rankedProfileData = await rankedReponse.json()
+  const rankedProfileData = await getRankedProfile(puuid)
 
-  const masteryReponse = await getChampionMasteryProfile(puuid)
-  const masteryProfileData = await masteryReponse.json()
+  const masteryProfileData = await getChampionMasteryProfile(puuid)
 
   return {
     profile: {

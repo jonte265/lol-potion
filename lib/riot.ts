@@ -22,7 +22,7 @@ export async function getAccount(gameName: string, tagLine: string) {
 }
 
 export async function getMatchIds(puuid: string) {
-  return fetch(
+  const response = await fetch(
     `https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=5`,
     {
       headers: {
@@ -30,10 +30,16 @@ export async function getMatchIds(puuid: string) {
       },
     }
   )
+
+  if (!response.ok) {
+    throw new Error(`Riot API request failed: ${response.status}`)
+  }
+
+  return response.json()
 }
 
 export async function getMatchDetails(matchId: string) {
-  return fetch(
+  const response = await fetch(
     `https://europe.api.riotgames.com/lol/match/v5/matches/${matchId}`,
     {
       headers: {
@@ -42,10 +48,16 @@ export async function getMatchDetails(matchId: string) {
       cache: "force-cache",
     }
   )
+
+  if (!response.ok) {
+    throw new Error(`Riot API request failed: ${response.status}`)
+  }
+
+  return response.json()
 }
 
 export async function getSummonerProfile(puuid: string) {
-  return fetch(
+  const response = await fetch(
     `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}`,
     {
       headers: {
@@ -53,10 +65,16 @@ export async function getSummonerProfile(puuid: string) {
       },
     }
   )
+
+  if (!response.ok) {
+    throw new Error(`Riot API request failed: ${response.status}`)
+  }
+
+  return response.json()
 }
 
 export async function getRankedProfile(puuid: string) {
-  return fetch(
+  const response = await fetch(
     `https://euw1.api.riotgames.com/lol/league/v4/entries/by-puuid/${puuid}`,
     {
       headers: {
@@ -64,10 +82,16 @@ export async function getRankedProfile(puuid: string) {
       },
     }
   )
+
+  if (!response.ok) {
+    throw new Error(`Riot API request failed: ${response.status}`)
+  }
+
+  return response.json()
 }
 
 export async function getChampionMasteryProfile(puuid: string) {
-  return fetch(
+  const response = await fetch(
     `https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}/top`,
     {
       headers: {
@@ -75,4 +99,10 @@ export async function getChampionMasteryProfile(puuid: string) {
       },
     }
   )
+
+  if (!response.ok) {
+    throw new Error(`Riot API request failed: ${response.status}`)
+  }
+
+  return response.json()
 }
