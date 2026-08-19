@@ -65,9 +65,7 @@ export default async function MatchCard({ matchdata, puuid }) {
     player.item5,
   ]
 
-  const playerItemsInfo = await Promise.all(
-    playerItems.filter((itemId) => itemId !== 0).map((i) => getItemsInfo(i))
-  )
+  const playerItemsInfo = await getItemsInfo(playerItems)
 
   console.log("playerItemsInfo", playerItemsInfo)
 
@@ -211,14 +209,20 @@ export default async function MatchCard({ matchdata, puuid }) {
           <div className="flex shrink-0 flex-row">
             <div className="grid grid-cols-4 gap-1">
               {playerItemsInfo.map((item, index) => (
-                <Image
-                  key={`${item.image.full}-${index}`}
-                  className="rounded-xs"
-                  src={getItemImageUrl(item.image.full)}
-                  width={25}
-                  height={25}
-                  alt={`${item.name} icon`}
-                />
+                <div
+                  key={`${item?.itemId ?? "empty"}-${index}`}
+                  className="size-[25px] rounded-xs bg-primary/40"
+                >
+                  {item && (
+                    <Image
+                      className="rounded-xs"
+                      src={item.imageUrl}
+                      width={25}
+                      height={25}
+                      alt={`${item.itemInfo.name} icon`}
+                    />
+                  )}
+                </div>
               ))}
             </div>
           </div>

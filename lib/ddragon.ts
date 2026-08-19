@@ -108,7 +108,7 @@ export async function getRunesStyle(runeStyleId: number) {
   return runeStyle
 }
 
-export async function getItemsInfo(itemId: number) {
+export async function getItemsInfo(itemIds: number[]) {
   const res = await fetch(
     "https://ddragon.leagueoflegends.com/cdn/16.16.1/data/en_US/item.json",
     {
@@ -118,9 +118,21 @@ export async function getItemsInfo(itemId: number) {
 
   const itemsInfo = await res.json()
 
-  const itemInfo = itemsInfo.data[itemId]
+  const allItemsInfo = itemIds.map((id) => {
+    if (id === 0) return null
 
-  return itemInfo
+    const item = itemsInfo.data[id]
+
+    if (!item) return null
+
+    return {
+      itemId: id,
+      itemInfo: item,
+      imageUrl: getItemImageUrl(item.image.full),
+    }
+  })
+
+  return allItemsInfo
 }
 
 export async function getChampionInfo(championId: number) {

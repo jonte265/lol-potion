@@ -17,7 +17,6 @@ export default function TeamStatsRow({
   highestDamage,
 }) {
   const cs = calcCs(player.totalMinionsKilled, player.neutralMinionsKilled)
-
   const csPerMin = calcCsPerMin(cs, gameDuration)
 
   return (
