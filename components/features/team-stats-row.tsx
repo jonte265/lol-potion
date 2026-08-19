@@ -6,10 +6,18 @@ import Link from "next/link"
 import { Badge } from "../ui/badge"
 import { Flame } from "lucide-react"
 import { Progress } from "../ui/progress"
-import { getChampionImageUrl, getItemsInfo } from "@/lib/ddragon"
+import {
+  getChampionImageUrl,
+  getItemsInfo,
+  getRunesInfo,
+  getRunesStyle,
+  getSummonerSpellsInfo,
+} from "@/lib/ddragon"
 import { calcCs, calcCsPerMin } from "@/lib/stat"
 import { formatCompactNumber } from "@/lib/format"
 import ItemInventory from "./item-inventory"
+import SummonerSpellIcon from "./summoner-spell-icon"
+import RuneIcon from "./rune-icon"
 
 export default async function TeamStatsRow({
   player,
@@ -19,6 +27,14 @@ export default async function TeamStatsRow({
 }) {
   const cs = calcCs(player.totalMinionsKilled, player.neutralMinionsKilled)
   const csPerMin = calcCsPerMin(cs, gameDuration)
+
+  const spellsInfo1 = await getSummonerSpellsInfo(player.summoner1Id)
+  const spellsInfo2 = await getSummonerSpellsInfo(player.summoner2Id)
+
+  const runeInfo1 = await getRunesInfo(
+    player.perks.styles[0].selections[0].perk
+  )
+  const runeStyle = await getRunesStyle(player.perks.styles[1].style)
 
   const playerItems = [
     player.item0,
@@ -38,33 +54,56 @@ export default async function TeamStatsRow({
     >
       <TableCell>
         <div className="flex flex-row items-center gap-2">
-          {/* Champ icon */}
-          <div className="relative shrink-0">
-            <Image
-              className={`${player.puuid === puuid ? "rounded-full ring-1 ring-foreground/80" : "rounded-xs"} `}
-              src={getChampionImageUrl(player.championName)}
-              width={40}
-              height={40}
-              alt={`${player.championName} icon`}
-            />
+          <div className="flex flex-row items-center gap-0.5">
+            {/* Champ icon */}
+            <div className="relative shrink-0">
+              <Image
+                className={`${player.puuid === puuid ? "rounded-full ring-1 ring-foreground/80" : "rounded-xs"} `}
+                src={getChampionImageUrl(player.championName)}
+                width={40}
+                height={40}
+                alt={`${player.championName} icon`}
+              />
 
-            <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
-              <Typography small>{player.champLevel}</Typography>
+              <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
+                <Typography small>{player.champLevel}</Typography>
+              </div>
+              <div className="absolute top-0 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-xs bg-background px-0.5 py-0">
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Typography light small>
+                      {player.summonerLevel}
+                    </Typography>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Summoner level when this match was played
+                  </TooltipContent>
+                </Tooltip>
+              </div>
             </div>
-            <div className="absolute top-0 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-xs bg-background px-0.5 py-0">
-              <Tooltip>
-                <TooltipTrigger>
-                  <Typography light small>
-                    {player.summonerLevel}
-                  </Typography>
-                </TooltipTrigger>
-                <TooltipContent>
-                  Summoner level when this match was played
-                </TooltipContent>
-              </Tooltip>
+            {/* Summoner spells */}
+            <div className="flex shrink-0 flex-col gap-0.5">
+              <SummonerSpellIcon
+                player={player}
+                spellInfo={spellsInfo1}
+                spellSlot={1}
+                size={19}
+              />
+              <SummonerSpellIcon
+                player={player}
+                spellInfo={spellsInfo2}
+                spellSlot={2}
+                size={19}
+              />
+            </div>
+            {/* Runes */}
+            <div className="flex shrink-0 flex-col gap-0.5">
+              <RuneIcon runeInfo={runeInfo1} size={19} />
+              <RuneIcon runeInfo={runeStyle} size={19} />
             </div>
           </div>
 
+          {/* Names */}
           <div className="flex flex-col">
             <Link
               className={`block w-24 truncate text-sm font-bold hover:underline`}
@@ -98,7 +137,7 @@ export default async function TeamStatsRow({
       </TableCell>
       <TableCell>
         <div className="flex flex-col gap-1">
-          <div className="flex flex-row items-center gap-1">
+          <div className="flex flex-row items-center gap-0.5">
             {player.totalDamageDealtToChampions === highestDamage && (
               <Flame className="size-4 text-orange-400" />
             )}
