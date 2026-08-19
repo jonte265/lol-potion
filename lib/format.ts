@@ -6,3 +6,10 @@ export function formatCompactNumber(value: number) {
     .format(value)
     .toLowerCase()
 }
+
+export function cleanItemDescription(description: string) {
+  return description
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<[^>]*>/g, "")
+    .trim()
+}
