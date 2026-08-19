@@ -96,7 +96,7 @@ export default async function MatchCard({ matchdata, puuid }) {
           {/* Column 2 */}
           <div className="flex flex-col">
             {/* Champ icon + summoner spells + runes */}
-            <div className="flex flex-row items-start gap-0.5">
+            <div className="flex flex-row items-center gap-0.5">
               {/* Champ icon */}
               <div className="relative shrink-0">
                 <Image

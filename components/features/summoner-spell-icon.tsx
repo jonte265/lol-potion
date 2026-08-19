@@ -13,15 +13,17 @@ export default function SummonerSpellIcon({
   return (
     <div className="relative">
       <Tooltip>
-        <TooltipTrigger>
-          <Image
-            className="rounded-xs"
-            src={spellInfo.imageUrl}
-            width={size}
-            height={size}
-            alt={`${spellInfo.name} icon`}
-          />
-        </TooltipTrigger>
+        <TooltipTrigger
+          render={
+            <Image
+              className="rounded-xs"
+              src={spellInfo.imageUrl}
+              width={size}
+              height={size}
+              alt={`${spellInfo.name} icon`}
+            />
+          }
+        />
 
         <TooltipContent>
           <div className="flex flex-col flex-wrap gap-2">
@@ -41,11 +43,16 @@ export default function SummonerSpellIcon({
 
       <div className="absolute bottom-0 rounded-xs bg-background px-0.5">
         <Tooltip>
-          <TooltipTrigger>
-            <Typography small light>
-              {spellSlot === 1 ? player.summoner1Casts : player.summoner2Casts}
-            </Typography>
-          </TooltipTrigger>
+          <TooltipTrigger
+            render={
+              <Typography small light>
+                {spellSlot === 1
+                  ? player.summoner1Casts
+                  : player.summoner2Casts}
+              </Typography>
+            }
+          />
+
           <TooltipContent>Amount of times used</TooltipContent>
         </Tooltip>
       </div>

@@ -22,11 +22,11 @@ export default async function ProfilePage({ params }: any) {
     notFound()
   }
 
-  console.log("responseAccount", responseAccount)
+  // console.log("responseAccount", responseAccount)
 
   const profileResponse = await getProfileData(responseAccount.puuid)
 
-  console.log("all profile details", profileResponse)
+  // console.log("all profile details", profileResponse)
 
   const championMasteries = await Promise.all(
     profileResponse.masteryProfileData.map((champ) =>
@@ -34,7 +34,7 @@ export default async function ProfilePage({ params }: any) {
     )
   )
 
-  console.log("championMasteries", championMasteries)
+  // console.log("championMasteries", championMasteries)
 
   const splashUrl = championMasteries[0]
     ? getChampionSplashUrl(championMasteries[0].id)
