@@ -36,7 +36,9 @@ export default async function ProfilePage({ params }: any) {
 
   console.log("championMasteries", championMasteries)
 
-  const splashUrl = getChampionSplashUrl(championMasteries[0].id)
+  const splashUrl = championMasteries[0]
+    ? getChampionSplashUrl(championMasteries[0].id)
+    : getChampionSplashUrl()
 
   return (
     <div className="mx-auto flex w-full max-w-280 flex-col items-start gap-8">
