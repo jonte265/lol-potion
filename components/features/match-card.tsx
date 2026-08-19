@@ -78,12 +78,12 @@ export default async function MatchCard({ matchdata, puuid }) {
       <Collapsible className="flex flex-col gap-4">
         <div className="flex flex-row items-center justify-between gap-4 p-4">
           {/* Column 1 */}
-          <div className="flex flex-col gap-2">
+          <div className="flex min-w-25 flex-col gap-2">
             <div>
               <Typography bold>
                 {getQueueName(matchdata.info.queueId)}
               </Typography>
-              <Typography light>
+              <Typography small light>
                 {timeAgo(matchdata.info.gameEndTimestamp)}
               </Typography>
             </div>
