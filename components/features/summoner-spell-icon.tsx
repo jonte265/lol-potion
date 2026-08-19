@@ -2,7 +2,12 @@ import Image from "next/image"
 import Typography from "../common/typography/Typography"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 
-export default function SummonerSpellIcon({ spellInfo, player, spellSlot }) {
+export default function SummonerSpellIcon({
+  spellInfo,
+  player,
+  spellSlot,
+  size,
+}) {
   if (!spellInfo) return null
 
   return (
@@ -12,8 +17,8 @@ export default function SummonerSpellIcon({ spellInfo, player, spellSlot }) {
           <Image
             className="rounded-xs"
             src={spellInfo.imageUrl}
-            width={24}
-            height={24}
+            width={size}
+            height={size}
             alt={`${spellInfo.name} icon`}
           />
         </TooltipTrigger>

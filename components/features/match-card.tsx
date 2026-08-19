@@ -117,11 +117,13 @@ export default async function MatchCard({ matchdata, puuid }) {
                   player={player}
                   spellInfo={spellsInfo1}
                   spellSlot={1}
+                  size={24}
                 />
                 <SummonerSpellIcon
                   player={player}
                   spellInfo={spellsInfo2}
                   spellSlot={2}
+                  size={24}
                 />
               </div>
               {/* Runes */}
