@@ -1,21 +1,20 @@
+import { getChampionImageUrl } from "@/lib/ddragon"
+import { formatCompactNumber } from "@/lib/format"
+import { calcCs, calcCsPerMin } from "@/lib/stat"
+import { Flame } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 import Typography from "../common/typography/Typography"
+import { Progress } from "../ui/progress"
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "../ui/table"
-import { getChampionImageUrl } from "@/lib/ddragon"
-import { formatCompactNumber } from "@/lib/format"
-import { Progress } from "../ui/progress"
-import { Flame } from "lucide-react"
-import { calcCs, calcCsPerMin } from "@/lib/stat"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
-import Link from "next/link"
 
 export default function TeamStatsTable({
   team,
@@ -48,12 +47,14 @@ export default function TeamStatsTable({
             <TableHead>Damage</TableHead>
             <TableHead>Gold</TableHead>
             <TableHead>CS</TableHead>
-            <TableHead>Wards</TableHead>
+            <TableHead>Vision</TableHead>
             <TableHead className="text-right">Items</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {team.map((player) => {
+            console.log("player9", player)
+
             const cs = calcCs(
               player.totalMinionsKilled,
               player.neutralMinionsKilled
@@ -103,7 +104,10 @@ export default function TeamStatsTable({
                       >
                         {player.riotIdGameName}
                       </Link>
-                      <Typography light>{player.championName}</Typography>
+                      <div className="flex flex-row gap-1">
+                        <Typography light>{player.championName}</Typography>
+                        <Typography light>rank</Typography>
+                      </div>
                     </div>
                   </div>
                 </TableCell>
@@ -161,7 +165,23 @@ export default function TeamStatsTable({
                   <Typography>{cs}</Typography>
                   <Typography light>({csPerMin.toFixed(1)})</Typography>
                 </TableCell>
-                <TableCell>{player.wardsPlaced}</TableCell>
+                <TableCell>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Typography>{player.visionScore}</Typography>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <div className="flex flex-col">
+                        <Typography>
+                          {player.wardsPlaced} wards placed
+                        </Typography>
+                        <Typography>
+                          {player.wardsKilled} wards destroyed
+                        </Typography>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
+                </TableCell>
                 <TableCell className="text-right">Item1</TableCell>
               </TableRow>
             )
