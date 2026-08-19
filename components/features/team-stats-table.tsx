@@ -1,21 +1,5 @@
-import { getChampionImageUrl } from "@/lib/ddragon"
-import { formatCompactNumber } from "@/lib/format"
-import { calcCs, calcCsPerMin } from "@/lib/stat"
-import { Flame } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
 import Typography from "../common/typography/Typography"
-import { Progress } from "../ui/progress"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../ui/table"
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
-import { Badge } from "../ui/badge"
+import { Table, TableBody, TableHead, TableHeader, TableRow } from "../ui/table"
 import TeamStatsRow from "./team-stats-row"
 
 export default function TeamStatsTable({
