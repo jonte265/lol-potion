@@ -6,11 +6,12 @@ import Link from "next/link"
 import { Badge } from "../ui/badge"
 import { Flame } from "lucide-react"
 import { Progress } from "../ui/progress"
-import { getChampionImageUrl } from "@/lib/ddragon"
+import { getChampionImageUrl, getItemsInfo } from "@/lib/ddragon"
 import { calcCs, calcCsPerMin } from "@/lib/stat"
 import { formatCompactNumber } from "@/lib/format"
+import ItemInventory from "./item-inventory"
 
-export default function TeamStatsRow({
+export default async function TeamStatsRow({
   player,
   puuid,
   gameDuration,
@@ -18,6 +19,18 @@ export default function TeamStatsRow({
 }) {
   const cs = calcCs(player.totalMinionsKilled, player.neutralMinionsKilled)
   const csPerMin = calcCsPerMin(cs, gameDuration)
+
+  const playerItems = [
+    player.item0,
+    player.item1,
+    player.item2,
+    player.item6, // Ward item
+    player.item3,
+    player.item4,
+    player.item5,
+  ]
+
+  const playerItemsInfo = await getItemsInfo(playerItems)
 
   return (
     <TableRow
@@ -130,7 +143,17 @@ export default function TeamStatsRow({
           </TooltipContent>
         </Tooltip>
       </TableCell>
-      <TableCell className="text-right">Item1</TableCell>
+      <TableCell>
+        <div className="inline-grid grid-cols-4 gap-0.5">
+          {playerItemsInfo.map((item, index) => (
+            <ItemInventory
+              key={`${item?.itemId ?? "empty"}-${index}`}
+              item={item}
+              size={16}
+            />
+          ))}
+        </div>
+      </TableCell>
     </TableRow>
   )
 }

@@ -25,6 +25,7 @@ import {
   CollapsibleTrigger,
 } from "../ui/collapsible"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
+import ItemInventory from "./item-inventory"
 
 export default async function MatchCard({ matchdata, puuid }) {
   const player = matchdata.info.participants.find((p) => p.puuid === puuid)
@@ -209,20 +210,11 @@ export default async function MatchCard({ matchdata, puuid }) {
           <div className="flex shrink-0 flex-row">
             <div className="grid grid-cols-4 gap-1">
               {playerItemsInfo.map((item, index) => (
-                <div
+                <ItemInventory
                   key={`${item?.itemId ?? "empty"}-${index}`}
-                  className="size-[25px] rounded-xs bg-primary/40"
-                >
-                  {item && (
-                    <Image
-                      className="rounded-xs"
-                      src={item.imageUrl}
-                      width={25}
-                      height={25}
-                      alt={`${item.itemInfo.name} icon`}
-                    />
-                  )}
-                </div>
+                  item={item}
+                  size={25}
+                />
               ))}
             </div>
           </div>
