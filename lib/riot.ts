@@ -1,7 +1,7 @@
 import "server-only"
 
 export async function getAccount(gameName: string, tagLine: string) {
-  return fetch(
+  const response = await fetch(
     `https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}`,
     {
       headers: {
@@ -9,6 +9,16 @@ export async function getAccount(gameName: string, tagLine: string) {
       },
     }
   )
+
+  if (response.status === 404) {
+    return null
+  }
+
+  if (!response.ok) {
+    throw new Error(`Riot API request failed: ${response.status}`)
+  }
+
+  return response.json()
 }
 
 export async function getMatchIds(puuid: string) {

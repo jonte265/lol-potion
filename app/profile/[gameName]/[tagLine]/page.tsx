@@ -18,17 +18,13 @@ import CopyButton from "@/components/common/copy-button"
 export default async function ProfilePage({ params }: any) {
   const { gameName, tagLine } = await params
 
-  const response = await getAccount(gameName, tagLine)
+  const responseAccount = await getAccount(gameName, tagLine)
 
-  if (response.status === 404) {
+  if (!responseAccount) {
     notFound()
   }
 
-  if (!response.ok) {
-    throw new Error("Riot API request failed")
-  }
-
-  const responseAccount = await response.json()
+  console.log("responseAccount", responseAccount)
 
   const profileResponse = await getProfileData(responseAccount.puuid)
 
