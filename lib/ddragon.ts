@@ -71,7 +71,12 @@ export async function getSummonerSpellsInfo(spellId: number) {
     (spell) => Number(spell.key) === spellId
   )
 
-  return exactSpellInfo
+  if (!exactSpellInfo) return null
+
+  return {
+    ...exactSpellInfo,
+    imageUrl: getSummonerSpellsImageUrl(exactSpellInfo.image.full),
+  }
 }
 
 export async function getRunesInfo(runeId: number) {

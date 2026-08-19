@@ -1,14 +1,15 @@
 import Image from "next/image"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import Typography from "../common/typography/Typography"
-import { getSummonerSpellsImageUrl } from "@/lib/ddragon"
 
 export default function SummonerSpellIcon({ spellInfo, player, spellSlot }) {
+  if (!spellInfo) return null
+
   return (
     <div className="relative">
       <Image
         className="rounded-xs"
-        src={getSummonerSpellsImageUrl(spellInfo.image.full)}
+        src={spellInfo.imageUrl}
         width={24}
         height={24}
         alt={`${spellInfo.name} icon`}

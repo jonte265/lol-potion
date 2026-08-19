@@ -1,30 +1,27 @@
-import Image from "next/image"
-import Typography from "../common/typography/Typography"
 import {
   getChampionImageUrl,
-  getItemImageUrl,
   getItemsInfo,
   getRuneImageUrl,
   getRunesInfo,
   getRunesStyle,
-  getSummonerSpellsImageUrl,
   getSummonerSpellsInfo,
 } from "@/lib/ddragon"
-import { formatGameDuration, getQueueName, timeAgo } from "@/lib/matches"
-import { ChevronDownIcon } from "lucide-react"
-import { calcCs, calcCsPerMin } from "@/lib/stat"
-import Link from "next/link"
-import { Card } from "../ui/card"
 import { formatCompactNumber } from "@/lib/format"
-import { buttonVariants } from "../ui/button"
+import { formatGameDuration, getQueueName, timeAgo } from "@/lib/matches"
+import { calcCs, calcCsPerMin } from "@/lib/stat"
 import { cn } from "@/lib/utils"
-import ExpandMatch from "./expand-match"
+import { ChevronDownIcon } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import Typography from "../common/typography/Typography"
+import { buttonVariants } from "../ui/button"
+import { Card } from "../ui/card"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "../ui/collapsible"
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
+import ExpandMatch from "./expand-match"
 import ItemInventory from "./item-inventory"
 import SummonerSpellIcon from "./summoner-spell-icon"
 
