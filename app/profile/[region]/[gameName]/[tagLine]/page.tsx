@@ -13,8 +13,28 @@ import { getAccount } from "@/lib/riot"
 import { RefreshCw } from "lucide-react"
 import Image from "next/image"
 import { notFound } from "next/navigation"
+import type { Metadata } from "next"
 
-export default async function ProfilePage({ params }: any) {
+type ProfilePageProps = {
+  params: Promise<{
+    region: string
+    gameName: string
+    tagLine: string
+  }>
+}
+
+export async function generateMetadata({
+  params,
+}: ProfilePageProps): Promise<Metadata> {
+  const { gameName, tagLine } = await params
+
+  return {
+    title: `${gameName} #${tagLine} | LoL Potion`,
+    description: `View ${gameName}'s League of Legends profile, ranked stats, mastery, and match history.`,
+  }
+}
+
+export default async function ProfilePage({ params }: ProfilePageProps) {
   const { region, gameName, tagLine } = await params
 
   const routingRegion = formatRegion(region)
