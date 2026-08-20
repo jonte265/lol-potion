@@ -24,9 +24,20 @@ import ExpandMatch from "./expand-match"
 import ItemInventory from "./item-inventory"
 import RuneIcon from "./rune-icon"
 import SummonerSpellIcon from "./summoner-spell-icon"
+import type { MatchData } from "@/lib/riot"
 
-export default async function MatchCard({ matchdata, puuid, region }) {
-  const player = matchdata.info.participants.find((p) => p.puuid === puuid)
+type MatchCardProps = {
+  matchdata: MatchData
+  puuid: string
+  region: string
+}
+
+export default async function MatchCard({
+  matchdata,
+  puuid,
+  region,
+}: MatchCardProps) {
+  const player = matchdata.info.participants.find((p) => p.puuid === puuid)!
 
   const blueTeam = matchdata.info.participants.filter(
     (player) => player.teamId === 100

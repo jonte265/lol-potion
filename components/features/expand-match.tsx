@@ -1,6 +1,17 @@
 import TeamStatsTable from "./team-stats-table"
+import type { MatchData } from "@/lib/riot"
 
-export default function ExpandMatch({ matchdata, puuid, region }) {
+type ExpandMatchProps = {
+  matchdata: MatchData
+  puuid: string
+  region: string
+}
+
+export default function ExpandMatch({
+  matchdata,
+  puuid,
+  region,
+}: ExpandMatchProps) {
   const blueTeam = matchdata.info.participants.filter(
     (player) => player.teamId === 100
   )
@@ -14,8 +25,6 @@ export default function ExpandMatch({ matchdata, puuid, region }) {
       (player) => player.totalDamageDealtToChampions
     )
   )
-
-  const player = matchdata.info.participants.find((p) => p.puuid === puuid)
 
   return (
     <div className="bg-card">

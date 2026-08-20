@@ -2,8 +2,14 @@ import Image from "next/image"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import Typography from "../common/typography/Typography"
 import { cleanItemDescription } from "@/lib/format"
+import type { PlayerItemInfo } from "@/lib/ddragon"
 
-export default function ItemInventory({ item, size }) {
+type ItemInventoryProps = {
+  item: PlayerItemInfo | null
+  size: number
+}
+
+export default function ItemInventory({ item, size }: ItemInventoryProps) {
   return (
     <div
       style={{ width: size, height: size }}

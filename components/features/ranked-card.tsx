@@ -1,10 +1,14 @@
-import React from "react"
-import Typography from "../common/typography/Typography"
+import type { RankedEntry } from "@/lib/riot"
 import { calcQueueType, calcWr } from "@/lib/stat"
 import Image from "next/image"
+import Typography from "../common/typography/Typography"
 import { Card } from "../ui/card"
 
-export default function RankedCard({ rankedData }) {
+type RankedCardProps = {
+  rankedData: RankedEntry
+}
+
+export default function RankedCard({ rankedData }: RankedCardProps) {
   return (
     <Card className="p-4">
       <Typography bold>{calcQueueType(rankedData.queueType)}</Typography>

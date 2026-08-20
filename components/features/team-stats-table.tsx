@@ -2,6 +2,15 @@ import Typography from "../common/typography/Typography"
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "../ui/table"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import TeamStatsRow from "./team-stats-row"
+import type { MatchParticipant } from "@/lib/riot"
+
+type TeamStatsTableProps = {
+  team: MatchParticipant[]
+  puuid: string
+  highestDamage: number
+  gameDuration: number
+  region: string
+}
 
 export default function TeamStatsTable({
   team,
@@ -9,7 +18,7 @@ export default function TeamStatsTable({
   highestDamage,
   gameDuration,
   region,
-}) {
+}: TeamStatsTableProps) {
   return (
     <div className="overflow-hidden rounded-xl">
       <Table>

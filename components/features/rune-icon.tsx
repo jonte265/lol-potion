@@ -1,6 +1,14 @@
 import Image from "next/image"
 
-export default function RuneIcon({ runeInfo, size }) {
+type RuneIconProps = {
+  runeInfo: {
+    name: string
+    imageUrl: string
+  } | null
+  size: number
+}
+
+export default function RuneIcon({ runeInfo, size }: RuneIconProps) {
   if (!runeInfo) return null
 
   return (

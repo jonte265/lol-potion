@@ -18,6 +18,15 @@ import { formatCompactNumber } from "@/lib/format"
 import ItemInventory from "./item-inventory"
 import SummonerSpellIcon from "./summoner-spell-icon"
 import RuneIcon from "./rune-icon"
+import type { MatchParticipant } from "@/lib/riot"
+
+type TeamStatsRowProps = {
+  player: MatchParticipant
+  puuid: string
+  gameDuration: number
+  highestDamage: number
+  region: string
+}
 
 export default async function TeamStatsRow({
   player,
@@ -25,7 +34,7 @@ export default async function TeamStatsRow({
   gameDuration,
   highestDamage,
   region,
-}) {
+}: TeamStatsRowProps) {
   const cs = calcCs(player.totalMinionsKilled, player.neutralMinionsKilled)
   const csPerMin = calcCsPerMin(cs, gameDuration)
 

@@ -1,13 +1,22 @@
 import Image from "next/image"
 import Typography from "../common/typography/Typography"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
+import type { SummonerSpell } from "@/lib/ddragon"
+import type { MatchParticipant } from "@/lib/riot"
+
+type SummonerSpellIconProps = {
+  spellInfo: (SummonerSpell & { imageUrl: string }) | null
+  player: MatchParticipant
+  spellSlot: 1 | 2
+  size: number
+}
 
 export default function SummonerSpellIcon({
   spellInfo,
   player,
   spellSlot,
   size,
-}) {
+}: SummonerSpellIconProps) {
   if (!spellInfo) return null
 
   return (

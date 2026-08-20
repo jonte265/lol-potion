@@ -2,9 +2,18 @@ import Image from "next/image"
 import Typography from "../common/typography/Typography"
 import { getChampionImageUrl, getChampionInfo } from "@/lib/ddragon"
 import { formatCompactNumber } from "@/lib/format"
+import type { ChampionMastery } from "@/lib/riot"
 
-export default async function ChampionMasteryList({ masteryData }) {
+type ChampionMasteryListProps = {
+  masteryData: ChampionMastery
+}
+
+export default async function ChampionMasteryList({
+  masteryData,
+}: ChampionMasteryListProps) {
   const champInfo = await getChampionInfo(masteryData.championId)
+
+  if (!champInfo) return null
 
   return (
     <div className="grid grid-cols-3 items-center gap-2">

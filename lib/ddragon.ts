@@ -1,3 +1,65 @@
+type DDragonImage = {
+  full: string
+}
+
+export type SummonerSpell = {
+  key: string
+  name: string
+  description: string
+  rangeBurn: string
+  cooldownBurn: string
+  image: DDragonImage
+}
+
+type SummonerSpellResponse = {
+  data: Record<string, SummonerSpell>
+}
+
+export type Rune = {
+  id: number
+  key: string
+  icon: string
+  name: string
+  shortDesc: string
+  longDesc: string
+}
+
+type RuneSlot = {
+  runes: Rune[]
+}
+
+export type RuneStyle = {
+  id: number
+  key: string
+  icon: string
+  name: string
+  slots: RuneSlot[]
+}
+
+export type ItemInfo = {
+  name: string
+  plaintext: string
+  description: string
+  tags: string[]
+  image: {
+    full: string
+  }
+  gold: {
+    total: number
+    sell: number
+  }
+}
+
+export type PlayerItemInfo = {
+  itemId: number
+  itemInfo: ItemInfo
+  imageUrl: string
+}
+
+type ItemsResponse = {
+  data: Record<string, ItemInfo>
+}
+
 export function getChampionImageUrl(championName: string) {
   const imageName =
     championName === "FiddleSticks" ? "Fiddlesticks" : championName
@@ -63,7 +125,7 @@ export async function getSummonerSpellsInfo(spellId: number) {
     }
   )
 
-  const spellInfo = await res.json()
+  const spellInfo: SummonerSpellResponse = await res.json()
 
   const spellArray = Object.values(spellInfo.data)
 
@@ -87,7 +149,7 @@ export async function getRunesInfo(runeId: number) {
     }
   )
 
-  const runeInfo = await res.json()
+  const runeInfo: RuneStyle[] = await res.json()
 
   const allRunes = runeInfo
     .flatMap((runeTree) => runeTree.slots)
@@ -111,7 +173,7 @@ export async function getRunesStyle(runeStyleId: number) {
     }
   )
 
-  const runeInfo = await res.json()
+  const runeInfo: RuneStyle[] = await res.json()
 
   const runeStyle = runeInfo.find((style) => style.id === runeStyleId)
 
@@ -123,7 +185,9 @@ export async function getRunesStyle(runeStyleId: number) {
   }
 }
 
-export async function getItemsInfo(itemIds: number[]) {
+export async function getItemsInfo(
+  itemIds: number[]
+): Promise<(PlayerItemInfo | null)[]> {
   const res = await fetch(
     "https://ddragon.leagueoflegends.com/cdn/16.16.1/data/en_US/item.json",
     {
@@ -131,7 +195,7 @@ export async function getItemsInfo(itemIds: number[]) {
     }
   )
 
-  const itemsInfo = await res.json()
+  const itemsInfo: ItemsResponse = await res.json()
 
   const allItemsInfo = itemIds.map((id) => {
     if (id === 0) return null
@@ -150,7 +214,16 @@ export async function getItemsInfo(itemIds: number[]) {
   return allItemsInfo
 }
 
-export async function getChampionInfo(championId: number) {
+export type ChampionInfo = {
+  id: string
+  key: string
+  name: string
+  title: string
+}
+
+export async function getChampionInfo(
+  championId: number
+): Promise<ChampionInfo | undefined> {
   const res = await fetch(
     "https://ddragon.leagueoflegends.com/cdn/16.16.1/data/en_US/champion.json",
     {
@@ -160,7 +233,7 @@ export async function getChampionInfo(championId: number) {
 
   const championsInfo = await res.json()
 
-  const championArray = Object.values(championsInfo.data)
+  const championArray = Object.values(championsInfo.data) as ChampionInfo[]
 
   const championData = championArray.find(
     (champ) => Number(champ.key) === championId

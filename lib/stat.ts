@@ -1,3 +1,5 @@
+import type { MatchParticipant } from "./riot"
+
 export function calcWr(wins: number, losses: number) {
   const total = wins + losses
 
@@ -37,7 +39,7 @@ export function calcCsPerMin(cs: number, gameDurationSeconds: number) {
   return cs / (gameDurationSeconds / 60)
 }
 
-export function calcCarryScore(player) {
+export function calcCarryScore(player: MatchParticipant) {
   const score =
     player.visionScore * 3 +
     player.challenges.kda * 5 +
