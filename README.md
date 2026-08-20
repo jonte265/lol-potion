@@ -1,5 +1,10 @@
 # LoL Potion
 
+<img width="720" height="605" alt="lolpotion-homepage" src="https://github.com/user-attachments/assets/9627eb1a-824a-4e90-bf53-9fbef91dc0ab" />
+
+<img width="720" height="845" alt="lolpotion-profile-expanded" src="https://github.com/user-attachments/assets/cf28cb6a-6425-4ffc-8569-e614139238da" />
+
+
 LoL Potion is a League of Legends profile and match-history viewer built with
 Next.js.
 
