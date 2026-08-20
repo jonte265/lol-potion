@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils"
 import SiteHeader from "@/components/layout/site-header"
 import SiteFooter from "@/components/layout/site-footer"
 import { TooltipProvider } from "@/components/ui/tooltip"
+import { Metadata } from "next"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -13,6 +14,12 @@ const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
+
+export const metadata: Metadata = {
+  title: "LoL Potion",
+  description:
+    "Search League of Legends profiles, ranked stats, champion mastery, and match history.",
+}
 
 export default function RootLayout({
   children,
