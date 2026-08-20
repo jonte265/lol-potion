@@ -8,6 +8,7 @@ export default function TeamStatsTable({
   puuid,
   highestDamage,
   gameDuration,
+  region,
 }) {
   return (
     <div className="overflow-hidden rounded-xl">
@@ -52,6 +53,7 @@ export default function TeamStatsTable({
               puuid={puuid}
               gameDuration={gameDuration}
               highestDamage={highestDamage}
+              region={region}
             />
           ))}
         </TableBody>

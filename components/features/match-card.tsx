@@ -25,7 +25,7 @@ import ItemInventory from "./item-inventory"
 import RuneIcon from "./rune-icon"
 import SummonerSpellIcon from "./summoner-spell-icon"
 
-export default async function MatchCard({ matchdata, puuid }) {
+export default async function MatchCard({ matchdata, puuid, region }) {
   const player = matchdata.info.participants.find((p) => p.puuid === puuid)
   console.log("player", player)
 
@@ -196,7 +196,7 @@ export default async function MatchCard({ matchdata, puuid }) {
 
                   <Link
                     className={`${player.puuid === puuid ? "font-bold" : ""} block w-24 truncate text-sm hover:underline`}
-                    href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
+                    href={`/profile/${region}/${player.riotIdGameName}/${player.riotIdTagline}`}
                     title={player.riotIdGameName}
                   >
                     {player.riotIdGameName}
@@ -220,7 +220,7 @@ export default async function MatchCard({ matchdata, puuid }) {
 
                   <Link
                     className={`${player.puuid === puuid ? "font-bold" : ""} block w-24 truncate text-sm hover:underline`}
-                    href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
+                    href={`/profile/${region}/${player.riotIdGameName}/${player.riotIdTagline}`}
                     title={player.riotIdGameName}
                   >
                     {player.riotIdGameName}
@@ -246,7 +246,7 @@ export default async function MatchCard({ matchdata, puuid }) {
           </div>
         </div>
         <CollapsibleContent>
-          <ExpandMatch matchdata={matchdata} puuid={puuid} />
+          <ExpandMatch matchdata={matchdata} puuid={puuid} region={region} />
         </CollapsibleContent>
       </Collapsible>
     </Card>

@@ -8,15 +8,22 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { getChampionInfo, getChampionSplashUrl } from "@/lib/ddragon"
 import { getProfileData } from "@/lib/profile"
+import { formatRegion } from "@/lib/region"
 import { getAccount } from "@/lib/riot"
 import { RefreshCw } from "lucide-react"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 
 export default async function ProfilePage({ params }: any) {
-  const { gameName, tagLine } = await params
+  const { region, gameName, tagLine } = await params
 
-  const responseAccount = await getAccount(gameName, tagLine)
+  const routingRegion = formatRegion(region)
+
+  if (!routingRegion) {
+    notFound()
+  }
+
+  const responseAccount = await getAccount(routingRegion, gameName, tagLine)
 
   if (!responseAccount) {
     notFound()
@@ -24,7 +31,7 @@ export default async function ProfilePage({ params }: any) {
 
   // console.log("responseAccount", responseAccount)
 
-  const profileResponse = await getProfileData(responseAccount.puuid)
+  const profileResponse = await getProfileData(region, responseAccount.puuid)
 
   console.log("all profile details", profileResponse)
 
@@ -115,6 +122,7 @@ export default async function ProfilePage({ params }: any) {
                 key={match.metadata.matchId}
                 matchdata={match}
                 puuid={responseAccount.puuid}
+                region={region}
               />
             ))}
           </div>

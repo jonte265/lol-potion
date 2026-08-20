@@ -107,7 +107,7 @@ export default async function TeamStatsRow({
           <div className="flex flex-col">
             <Link
               className={`block w-24 truncate text-sm font-bold hover:underline`}
-              href={`/profile/${player.riotIdGameName}/${player.riotIdTagline}`}
+              href={`/profile/${region}/${player.riotIdGameName}/${player.riotIdTagline}`}
               title={player.riotIdGameName}
             >
               {player.riotIdGameName}

@@ -1,8 +1,12 @@
 import "server-only"
 
-export async function getAccount(gameName: string, tagLine: string) {
+export async function getAccount(
+  continent: string,
+  gameName: string,
+  tagLine: string
+) {
   const response = await fetch(
-    `https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}`,
+    `https://${continent}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}`,
     {
       headers: {
         "X-Riot-Token": process.env.RIOT_API_KEY!,
@@ -21,9 +25,9 @@ export async function getAccount(gameName: string, tagLine: string) {
   return response.json()
 }
 
-export async function getMatchIds(puuid: string) {
+export async function getMatchIds(continent: string, puuid: string) {
   const response = await fetch(
-    `https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=5`,
+    `https://${continent}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=3`,
     {
       headers: {
         "X-Riot-Token": process.env.RIOT_API_KEY!,
@@ -38,9 +42,9 @@ export async function getMatchIds(puuid: string) {
   return response.json()
 }
 
-export async function getMatchDetails(matchId: string) {
+export async function getMatchDetails(continent: string, matchId: string) {
   const response = await fetch(
-    `https://europe.api.riotgames.com/lol/match/v5/matches/${matchId}`,
+    `https://${continent}.api.riotgames.com/lol/match/v5/matches/${matchId}`,
     {
       headers: {
         "X-Riot-Token": process.env.RIOT_API_KEY!,
@@ -56,9 +60,9 @@ export async function getMatchDetails(matchId: string) {
   return response.json()
 }
 
-export async function getSummonerProfile(puuid: string) {
+export async function getSummonerProfile(region: string, puuid: string) {
   const response = await fetch(
-    `https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}`,
+    `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}`,
     {
       headers: {
         "X-Riot-Token": process.env.RIOT_API_KEY!,
@@ -73,9 +77,9 @@ export async function getSummonerProfile(puuid: string) {
   return response.json()
 }
 
-export async function getRankedProfile(puuid: string) {
+export async function getRankedProfile(region: string, puuid: string) {
   const response = await fetch(
-    `https://euw1.api.riotgames.com/lol/league/v4/entries/by-puuid/${puuid}`,
+    `https://${region}.api.riotgames.com/lol/league/v4/entries/by-puuid/${puuid}`,
     {
       headers: {
         "X-Riot-Token": process.env.RIOT_API_KEY!,
@@ -90,9 +94,9 @@ export async function getRankedProfile(puuid: string) {
   return response.json()
 }
 
-export async function getChampionMasteryProfile(puuid: string) {
+export async function getChampionMasteryProfile(region: string, puuid: string) {
   const response = await fetch(
-    `https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}/top`,
+    `https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}/top`,
     {
       headers: {
         "X-Riot-Token": process.env.RIOT_API_KEY!,

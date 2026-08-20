@@ -6,15 +6,16 @@ export async function GET(request: NextRequest) {
 
   const gameName = params.get("gameName")
   const tagLine = params.get("tagLine")
+  const region = params.get("region")
 
-  if (!gameName || !tagLine) {
+  if (!gameName || !tagLine || !region) {
     return NextResponse.json(
       { error: "Game Name and Tagline are required" },
       { status: 400 }
     )
   }
 
-  const account = await getAccount(gameName, tagLine)
+  const account = await getAccount(region, gameName, tagLine)
 
   if (!account) {
     return NextResponse.json(

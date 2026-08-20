@@ -1,6 +1,6 @@
 import TeamStatsTable from "./team-stats-table"
 
-export default function ExpandMatch({ matchdata, puuid }) {
+export default function ExpandMatch({ matchdata, puuid, region }) {
   const blueTeam = matchdata.info.participants.filter(
     (player) => player.teamId === 100
   )
@@ -26,12 +26,14 @@ export default function ExpandMatch({ matchdata, puuid }) {
           puuid={puuid}
           highestDamage={highestDamage}
           gameDuration={matchdata.info.gameDuration}
+          region={region}
         />
         <TeamStatsTable
           team={redTeam}
           puuid={puuid}
           highestDamage={highestDamage}
           gameDuration={matchdata.info.gameDuration}
+          region={region}
         />
       </div>
     </div>
