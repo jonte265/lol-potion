@@ -4,7 +4,7 @@ import TopPlayers from "@/components/features/top-players"
 import { getChampionSplashUrl } from "@/lib/ddragon"
 
 // Cache
-export const revalidate = 60 * 60
+export const revalidate = 3600
 
 export default function Page() {
   const splashUrl = getChampionSplashUrl("Sion")
