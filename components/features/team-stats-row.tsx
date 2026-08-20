@@ -24,6 +24,7 @@ export default async function TeamStatsRow({
   puuid,
   gameDuration,
   highestDamage,
+  region,
 }) {
   const cs = calcCs(player.totalMinionsKilled, player.neutralMinionsKilled)
   const csPerMin = calcCsPerMin(cs, gameDuration)
