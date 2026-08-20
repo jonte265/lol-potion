@@ -169,7 +169,7 @@ export default async function MatchCard({
             </Typography>
           </div>
           {/* Column 4 items */}
-          <div className="flex shrink-0 flex-row">
+          <div className="hidden shrink-0 flex-row md:flex">
             <div className="grid grid-cols-4 gap-1">
               {playerItemsInfo.map((item, index) => (
                 <ItemInventory
