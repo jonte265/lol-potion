@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "../ui/select"
 
-export default function ProfileSearch() {
+export default function ProfileSearch({ header = false }) {
   const router = useRouter()
   const [search, setSearch] = useState("")
   const [region, setRegion] = useState("euw1")
@@ -55,7 +55,9 @@ export default function ProfileSearch() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <InputGroup className="h-14 border-4 border-primary/30 bg-background/90 has-[[data-slot=input-group-control]:focus-visible]:border-primary has-[[data-slot=input-group-control]:focus-visible]:ring-primary/30">
+        <InputGroup
+          className={`${header ? "" : "h-14 border-4"} border-primary/30 bg-background/90 has-[[data-slot=input-group-control]:focus-visible]:border-primary has-[[data-slot=input-group-control]:focus-visible]:ring-primary/30`}
+        >
           <InputGroupAddon align="inline-start">
             <Select
               items={regions}
@@ -79,6 +81,7 @@ export default function ProfileSearch() {
           </InputGroupAddon>
 
           <InputGroupInput
+            autoComplete="off"
             className="h-full px-4 text-base md:text-base"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -92,7 +95,7 @@ export default function ProfileSearch() {
           </InputGroupAddon>
         </InputGroup>
       </form>
-      <p className="pt-4 text-center text-destructive">{error}</p>
+      {error && <p className="pt-4 text-center text-destructive">{error}</p>}
     </div>
   )
 }

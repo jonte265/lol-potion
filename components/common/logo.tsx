@@ -14,7 +14,13 @@ export default function Logo() {
           height={25}
           alt={`Health potion icon`}
         />
-        <Title>LoL Potion</Title>
+        <div className="sm:hidden">
+          <Title>LP</Title>
+        </div>
+
+        <div className="hidden sm:block">
+          <Title>LoL Potion</Title>
+        </div>
       </div>
     </Link>
   )
