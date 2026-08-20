@@ -19,6 +19,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select"
+import Typography from "../common/typography/Typography"
+import { Button } from "../ui/button"
 
 export default function ProfileSearch({ header = false }) {
   const router = useRouter()
@@ -53,7 +55,7 @@ export default function ProfileSearch({ header = false }) {
   }
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <form onSubmit={handleSubmit}>
         <InputGroup
           className={`${header ? "" : "h-14 border-4"} border-primary/30 bg-background/90 has-[[data-slot=input-group-control]:focus-visible]:border-primary has-[[data-slot=input-group-control]:focus-visible]:ring-primary/30`}
@@ -96,6 +98,29 @@ export default function ProfileSearch({ header = false }) {
         </InputGroup>
       </form>
       {error && <p className="pt-4 text-center text-destructive">{error}</p>}
+      {!header && (
+        <div className="flex flex-row items-center justify-center gap-2">
+          <Typography light>Try a profile:</Typography>
+          <Button
+            variant={"secondary"}
+            onClick={() => router.push(`/profile/euw1/Thebausffs/COOL`)}
+          >
+            Thebausffs
+          </Button>
+          <Button
+            variant={"secondary"}
+            onClick={() => router.push(`/profile/kr/Hide on bush/KR1`)}
+          >
+            Faker
+          </Button>
+          <Button
+            variant={"secondary"}
+            onClick={() => router.push(`/profile/na1/Doublelift/NA01`)}
+          >
+            Doublelift
+          </Button>
+        </div>
+      )}
     </div>
   )
 }
