@@ -110,3 +110,61 @@ export async function getChampionMasteryProfile(region: string, puuid: string) {
 
   return response.json()
 }
+
+export async function getAccountByPuuid(continent: string, puuid: string) {
+  const response = await fetch(
+    `https://${continent}.api.riotgames.com/riot/account/v1/accounts/by-puuid/${puuid}`,
+    {
+      headers: {
+        "X-Riot-Token": process.env.RIOT_API_KEY!,
+      },
+    }
+  )
+
+  if (!response.ok) {
+    throw new Error(`Riot API request failed: ${response.status}`)
+  }
+
+  return response.json()
+}
+
+export async function getTopChallengerPlayers(
+  region: string,
+  continent: string
+) {
+  const response = await fetch(
+    `https://${region}.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5`,
+
+    {
+      headers: {
+        "X-Riot-Token": process.env.RIOT_API_KEY!,
+      },
+    }
+  )
+
+  if (!response.ok) {
+    throw new Error(`Riot API request failed: ${response.status}`)
+  }
+
+  const responseChallenger = (await response.json()).entries.slice(0, 5)
+
+  const accountProfile = await Promise.all(
+    responseChallenger.map((item) => getAccountByPuuid(continent, item.puuid))
+  )
+
+  const summonerProfile = await Promise.all(
+    responseChallenger.map((item) => getSummonerProfile(region, item.puuid))
+  )
+
+  const profileIconUrl = summonerProfile.map(
+    (item) =>
+      `https://ddragon.leagueoflegends.com/cdn/16.16.1/img/profileicon/${item.profileIconId}.png`
+  )
+
+  return responseChallenger.map((player, index) => ({
+    ...player,
+    accountProfile: accountProfile[index],
+    summonerProfile: summonerProfile[index],
+    profileIconUrl: profileIconUrl[index],
+  }))
+}

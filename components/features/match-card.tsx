@@ -27,7 +27,6 @@ import SummonerSpellIcon from "./summoner-spell-icon"
 
 export default async function MatchCard({ matchdata, puuid, region }) {
   const player = matchdata.info.participants.find((p) => p.puuid === puuid)
-  console.log("player", player)
 
   const blueTeam = matchdata.info.participants.filter(
     (player) => player.teamId === 100
@@ -37,19 +36,13 @@ export default async function MatchCard({ matchdata, puuid, region }) {
     (player) => player.teamId === 200
   )
 
-  console.log("blueTeam", blueTeam)
-
   const spellsInfo1 = await getSummonerSpellsInfo(player.summoner1Id)
   const spellsInfo2 = await getSummonerSpellsInfo(player.summoner2Id)
-  console.log(spellsInfo1, "spellsInfo")
 
   const runeInfo1 = await getRunesInfo(
     player.perks.styles[0].selections[0].perk
   )
   const runeStyle = await getRunesStyle(player.perks.styles[1].style)
-
-  console.log("runeInfo111111", runeInfo1)
-  console.log("runeStyleruneStyle", runeStyle)
 
   const cs = calcCs(player.totalMinionsKilled, player.neutralMinionsKilled)
   const csPerMin = calcCsPerMin(cs, matchdata.info.gameDuration)
@@ -65,8 +58,6 @@ export default async function MatchCard({ matchdata, puuid, region }) {
   ]
 
   const playerItemsInfo = await getItemsInfo(playerItems)
-
-  console.log("playerItemsInfo", playerItemsInfo)
 
   return (
     <Card

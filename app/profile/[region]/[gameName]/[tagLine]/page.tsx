@@ -29,19 +29,13 @@ export default async function ProfilePage({ params }: any) {
     notFound()
   }
 
-  // console.log("responseAccount", responseAccount)
-
   const profileResponse = await getProfileData(region, responseAccount.puuid)
-
-  console.log("all profile details", profileResponse)
 
   const championMasteries = await Promise.all(
     profileResponse.masteryProfileData.map((champ) =>
       getChampionInfo(champ.championId)
     )
   )
-
-  // console.log("championMasteries", championMasteries)
 
   const splashUrl = championMasteries[0]
     ? getChampionSplashUrl(championMasteries[0].id)
