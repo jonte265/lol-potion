@@ -1,7 +1,6 @@
 import { Geist, Geist_Mono, Inter } from "next/font/google"
 
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import SiteHeader from "@/components/layout/site-header"
 import SiteFooter from "@/components/layout/site-footer"
@@ -31,22 +30,20 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       className={cn(
-        "antialiased",
+        "dark antialiased",
         fontMono.variable,
         "font-sans",
         inter.variable
       )}
     >
       <body className="flex min-h-screen flex-col gap-8 p-4">
-        <ThemeProvider>
-          <TooltipProvider>
-            <SiteHeader />
+        <TooltipProvider>
+          <SiteHeader />
 
-            <main className="flex-1">{children}</main>
+          <main className="flex-1">{children}</main>
 
-            <SiteFooter />
-          </TooltipProvider>
-        </ThemeProvider>
+          <SiteFooter />
+        </TooltipProvider>
       </body>
     </html>
   )
